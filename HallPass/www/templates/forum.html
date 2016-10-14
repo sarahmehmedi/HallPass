@@ -1,18 +1,31 @@
-﻿<ion-view view-title="Forum" name="dashboard-view">
-    <ion-nav-buttons side="right">
+﻿<body ng-controller="MyCtrl">
+<ion-view view-title="Forum" name="dashboard-view">
+
+    <ion-nav-buttons side="left">
         <button class="button icon-left ion-log-out button-stable" ng-click="logout()">Logout</button>
     </ion-nav-buttons>
 
+    <ion-nav-buttons side="right">
+          <button class="button button-icon ion-plus" ng-click="addPost()"> </button>    
+    </ion-nav-buttons>
+
+
     <ion-content class="padding">
-        <div class="row">
-            <div class="col text-center">
-                <h3 class="title">Welcome {{username}}!</h3>
-                This will be forums.
-                <br><br><br>
-                
-                <br><br>
-              
-            </div>
-        </div>
+        <p> There are no new posts. </p>
+        <ion-list>
+            <ion-item ng-repeat="item in items" ng-class="{purchased:item.status == 'purchased'}">
+            {{item.name}}
+            <ion-option-button class='button-royal' ng-click="purchaseItem(item)">
+                <i class="icon ion-checkmark"></i>
+                </ion-option-button>
+            </ion-item>
+        </ion-list>
+
     </ion-content>
+
+        <script src="js/controllers.js"></script>
+        <script src="js/forums.js"></script>
+
 </ion-view>
+</body>
+

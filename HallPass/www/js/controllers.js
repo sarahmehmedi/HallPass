@@ -1,5 +1,4 @@
-﻿angular.module('HallPass')
-
+﻿app.controller("controllers")
 .controller('AppController', function ($scope, $state, $ionicPopup, AuthService, AUTH_EVENTS) {
     $scope.username = AuthService.username();
 
@@ -40,6 +39,20 @@
     };
 })
 
+// .controller('ForumController', function($scope, $ionicListDelegate, Posts){
+//     $scope.posts = Posts;
+
+//     $scope.addPost = function (){
+//       var name = prompt('List class, date, time, location of study session.');
+//       if(name) {
+//         $scope.posts.$addPost({
+//           'name' : name
+//         });
+//       }
+
+//     }
+// });
+
 .controller('DashController', function ($scope, $state, $http, $ionicPopup, AuthService) {
     $scope.logout = function () {
         AuthService.logout();
@@ -70,4 +83,6 @@
               $scope.response = err;
           });
     };
+
+
 });
