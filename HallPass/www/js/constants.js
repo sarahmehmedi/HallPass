@@ -1,11 +1,8 @@
-﻿angular.module('HallPass')
+﻿angular.module('HallPass.constants', [])
 
-.constant('AUTH_EVENTS', {
-    notAuthenticated: 'auth-not-authenticated',
-    notAuthorized: 'auth-not-authorized'
-})
-
-.constant('USER_ROLES', {
-    admin: 'admin_role',
-    public: 'public_role'
+.constant('FURL', {
+    apiKey: "AIzaSyDVm8Rbrn_UzM3F8N35EnJXejeTvQUhY5k",
+    authDomain: "hallpass-cdc95.firebaseapp.com",
+    databaseURL: "https://hallpass-cdc95.firebaseio.com",
+    storageBucket: "hallpass-cdc95.appspot.com",
 });

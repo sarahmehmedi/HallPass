@@ -1,95 +1,131 @@
-﻿angular.module('HallPass')
+﻿angular.module('HallPass.services', [])
 
-.service('AuthService', function ($q, $http, USER_ROLES) {
-    var LOCAL_TOKEN_KEY = 'yourTokenKey';
-    var username = '';
-    var isAuthenticated = false;
-    var role = '';
-    var authToken;
+.factory('Auth', function (FURL, $log, $firebaseAuth, $firebaseArray, $firebaseObject, Utils) {
 
-    function loadUserCredentials() {
-        var token = window.localStorage.getItem(LOCAL_TOKEN_KEY);
-        if (token) {
-            useCredentials(token);
+    firebase.initializeApp(FURL);
+    var ref = firebase.database().ref();
+    var auth = $firebaseAuth();
+
+    var Auth = {
+        user: {},
+
+        login: function (user) {
+            return auth.$signInWithEmailAndPassword(
+              user.email, user.password
+            );
+        },
+
+        createProfile: function (uid, user) {
+            var profile = {
+                id: uid,
+                email: user.email,
+                registered_in: Date()
+            };
+
+            //Remember to modify the register.index fields and map to a more extensive profile variable like this
+            /*            
+            var profile = {
+                      id: uid,
+              name: user.name,
+              lastname: user.lastname,
+              address: user.address,
+              email: user.email,
+                      registered_in: Date()
+            };*/
+            
+
+            var messagesRef = $firebaseArray(firebase.database().ref().child("users"));
+            messagesRef.$add(profile);
+            $log.log("User Saved");
+        },
+
+        register: function (user) {
+            return auth.$createUserWithEmailAndPassword(user.email, user.password)
+              .then(function (firebaseUser) {
+                  console.log("User created with uid: " + firebaseUser.uid);
+                  Auth.createProfile(firebaseUser.uid, user);
+                  Utils.alertshow("Success!", "Your account has been registered!");
+              })
+              .catch(function (error) {
+                  Utils.alertshow("Error.", "That email address is already in use.");
+                  $log.log("Error: " + error);
+              });
+        },
+
+        logout: function () {
+            auth.$signOut();
+            $log.log("User Logged Out.");
+        },
+
+        resetpassword: function (email) {
+            return auth.$sendPasswordResetEmail(
+				  email
+				).then(function () {
+				    Utils.alertshow("Success!", "Your password has been sent to your email.");
+				    console.log("Password reset email sent successfully!");
+				}).catch(function (error) {
+				    Utils.errMessage(error);
+				    console.error("Error: ", error.message);
+				});
+        },
+        changePassword: function (user) {
+            return auth.$changePassword({ email: user.email, oldPassword: user.oldPass, newPassword: user.newPass });
+        },
+
+        signInWithProvider: function (provider) {
+            return Auth.signInWithPopup('google');
         }
-    }
+    };
+    return Auth;
+})
 
-    function storeUserCredentials(token) {
-        window.localStorage.setItem(LOCAL_TOKEN_KEY, token);
-        useCredentials(token);
-    }
+.factory('Utils', function ($ionicLoading, $ionicPopup) {
 
-    function useCredentials(token) {
-        username = token.split('.')[0];
-        isAuthenticated = true;
-        authToken = token;
+    var Utils = {
 
-        if (username == 'admin') {
-            role = USER_ROLES.admin
-        }
-        if (username == 'user') {
-            role = USER_ROLES.public
-        }
+        show: function () {
+            $ionicLoading.show({
+                animation: 'fade-in',
+                showBackdrop: false,
+                maxWidth: 200,
+                showDelay: 500,
+                template: '<p class="item-icon-left">' + "Loading..." + '<ion-spinner icon="lines"/></p>'
+            });
+        },
 
-        // Set the token as header for your requests!
-        $http.defaults.headers.common['X-Auth-Token'] = token;
-    }
+        hide: function () {
+            $ionicLoading.hide();
+        },
 
-    function destroyUserCredentials() {
-        authToken = undefined;
-        username = '';
-        isAuthenticated = false;
-        $http.defaults.headers.common['X-Auth-Token'] = undefined;
-        window.localStorage.removeItem(LOCAL_TOKEN_KEY);
-    }
+        alertshow: function (tit, msg) {
+            var alertPopup = $ionicPopup.alert({
+                title: tit,
+                template: msg
+            });
+            alertPopup.then(function (res) {
+            });
+        },
 
-    var login = function (name, pw) {
-        return $q(function (resolve, reject) {
-            if ((name == 'admin' && pw == '1') || (name == 'user' && pw == '1')) {
-                // Make a request and receive your auth token from your server
-                storeUserCredentials(name + '.yourServerToken');
-                resolve('Login success.');
-            } else {
-                reject('Login Failed.');
+        errMessage: function (err) {
+
+            var msg = "Unknown Error...";
+
+            if (err && err.code) {
+                switch (err.code) {
+                    case "EMAIL_TAKEN":
+                        msg = "This Email has been taken."; break;
+                    case "INVALID_EMAIL":
+                        msg = "Invalid Email."; break;
+                    case "NETWORK_ERROR":
+                        msg = "Network Error."; break;
+                    case "INVALID_PASSWORD":
+                        msg = "Invalid Password."; break;
+                    case "INVALID_USER":
+                        msg = "Invalid User."; break;
+                }
             }
-        });
+            Utils.alertshow("Error", msg);
+        },
     };
-
-    var logout = function () {
-        destroyUserCredentials();
-    };
-
-    var isAuthorized = function (authorizedRoles) {
-        if (!angular.isArray(authorizedRoles)) {
-            authorizedRoles = [authorizedRoles];
-        }
-        return (isAuthenticated && authorizedRoles.indexOf(role) !== -1);
-    };
-
-    loadUserCredentials();
-
-    return {
-        login: login,
-        logout: logout,
-        isAuthorized: isAuthorized,
-        isAuthenticated: function () { return isAuthenticated; },
-        username: function () { return username; },
-        role: function () { return role; }
-    };
-})
-
-.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
-    return {
-        responseError: function (response) {
-            $rootScope.$broadcast({
-                401: AUTH_EVENTS.notAuthenticated,
-                403: AUTH_EVENTS.notAuthorized
-            }[response.status], response);
-            return $q.reject(response);
-        }
-    };
-})
-
-.config(function ($httpProvider) {
-    $httpProvider.interceptors.push('AuthInterceptor');
+    return Utils;
 });
