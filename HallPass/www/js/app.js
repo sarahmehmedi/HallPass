@@ -1,4 +1,4 @@
-angular.module('HallPass', ['ionic', 'HallPass.services', 'HallPass.controllers', 'HallPass.constants', 'HallPass.map','ngStorage', 'ngCordova', 'firebase', 'ngMessages'])
+angular.module('HallPass', ['ionic', 'HallPass.services', 'HallPass.controllers', 'HallPass.constants','ngStorage', 'ngCordova', 'firebase', 'ngMessages'])
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function (FURL) {
@@ -62,8 +62,8 @@ angular.module('HallPass', ['ionic', 'HallPass.services', 'HallPass.controllers'
     })
 
 
-    .state('forum.chat-detail', {
-        url: 'forum/:chatId',
+    .state('chat-detail', {
+        url: '/chat-detail/:chatId',
         views: {
             'tab-chats': {
                 templateUrl: 'templates/chat-detail.html',
@@ -95,8 +95,8 @@ angular.module('HallPass', ['ionic', 'HallPass.services', 'HallPass.controllers'
         url: 'main/map',
         views: {
             'map-tab': {
-                templateUrl: 'templates/map.html'
-                //controller: 'MapController'
+                templateUrl: 'templates/map.html',
+                controller: 'MapController'
             }
         }
     })

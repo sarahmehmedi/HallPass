@@ -1,4 +1,4 @@
-angular.module('HallPass', ['ionic', 'HallPass.services', 'HallPass.controllers', 'HallPass.constants', 'HallPass.map','ngStorage', 'ngCordova', 'firebase', 'ngMessages'])
+angular.module('HallPass', ['ionic', 'HallPass.services', 'HallPass.controllers', 'HallPass.constants','ngStorage', 'ngCordova', 'firebase', 'ngMessages'])
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function (FURL) {
@@ -45,36 +45,6 @@ angular.module('HallPass', ['ionic', 'HallPass.services', 'HallPass.controllers'
         //controller: 'AddPostCtrl'
     })
 
-    // .state('chats', {
-    //     url: '/chats',
-    //     views: {
-    //         'tab-chats': {
-    //             templateUrl: 'templates/tab-chats.html',
-    //             controller: 'ChatsCtrl'
-    //         }
-    //     }
-    // })
-
-    // .state('chat-detail', {
-    //     url: '/chats/:chatId',
-    //     views: {
-    //         'tab-chats': {
-    //             templateUrl: 'templates/chat-detail.html',
-    //             controller: 'ChatDetailCtrl'
-    //         }
-    //     }
-    // })
-
-    // .state('account',{
-    //     url: '/account',
-    //     views: {
-    //         'tab-account': {
-    //             templateUrl: 'templates/tab-account.html',
-    //             controller: 'AccountCtrl'
-    //         }
-    //     }
-    // })
-
     .state('main', {
         url: '/',
         abstract: true,
@@ -88,25 +58,12 @@ angular.module('HallPass', ['ionic', 'HallPass.services', 'HallPass.controllers'
                 templateUrl: 'templates/tab-chats.html',
                 controller: 'ChatsCtrl'
             }
-            // 'addPost':{
-            //     templateUrl: 'templates/addPost.html',
-            //     controller: 'AddPostCtrl'
-            // }
         }
     })
 
-    // .state('main.chats', {
-    //     url: '/chats',
-    //     views: {
-    //         'tab-chats': {
-    //             templateUrl: 'templates/tab-chats.html',
-    //             controller: 'ChatsCtrl'
-    //         }
-    //     }
-    // })
 
-    .state('forum.chat-detail', {
-        url: 'forum/:chatId',
+    .state('chat-detail', {
+        url: '/chat-detail/:chatId',
         views: {
             'tab-chats': {
                 templateUrl: 'templates/chat-detail.html',
@@ -124,11 +81,6 @@ angular.module('HallPass', ['ionic', 'HallPass.services', 'HallPass.controllers'
             }
         }
     })
-    .state('main.addPost',{
-        url: 'main/forum/addPost',
-        templateUrl: 'templates/addPost.html',
-        controller: 'AddPostCtrl'
-    })
 
     .state('main.notes', {
         url: 'main/notes',
@@ -143,8 +95,8 @@ angular.module('HallPass', ['ionic', 'HallPass.services', 'HallPass.controllers'
         url: 'main/map',
         views: {
             'map-tab': {
-                templateUrl: 'templates/map.html'
-                //controller: 'MapController'
+                templateUrl: 'templates/map.html',
+                controller: 'MapController'
             }
         }
     })

@@ -106,9 +106,9 @@
   }
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats){
+.controller('ChatDetailCtrl'['$scope', '$stateParams', 'Chats', function($scope, $stateParams, Chats){
   $scope.chat = Chats.get($stateParams.chatId);
-})
+}])
 
 
 // .controller('AddPostCtrl',['$scope', '$state','SessionData', '$firebase', function($scope, $state, SessionData, $firebase){
@@ -180,6 +180,37 @@
 
 // })
 
+
+.controller('MapController', function($scope,$cordovaGeolocation){
+  google.maps.event.addDomListener(window, "load", function(){
+    var myLatlng = new google.maps.LatLng(41.999005, -87.657135);
+
+    var mapOptions = {
+      center: myLatlng,
+      zoom: 16,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    
+    navigator.geolocation.getCurrentPosition(function(pos){
+      map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+
+    })
+
+    $scope.map = map;
+  });
+  $scope.mapCreated = function(map){
+    var latlngPlace = new google.maps.LatLng(41.999005, -87.657135);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: latlngPlace
+    });
+
+  $scope.map = map;
+  };
+});
+
 // .controller('MapController', function($scope, $cordovaGeolocation, $ionicLoading, $ionicPlatform) {
      
 //     $ionicPlatform.ready(function() {
@@ -191,13 +222,13 @@
 //         var posOptions = {
 //             enableHighAccuracy: true,
 //             timeout: 20000,
-//             maximumAge: 0
+//             maximumAge: 10000
 //         };
 //         $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
 //             var lat  = position.coords.latitude;
 //             var long = position.coords.longitude;
              
-//             var myLatlng = new google.maps.LatLng(lat, long);
+//             var myLatlng = new google.maps.LatLng(lat,long);
              
 //             var mapOptions = {
 //                 center: myLatlng,
@@ -217,7 +248,7 @@
 
 //     });  
                  
-// })
+// });
 
 // .service('SessionData', function(){
 //   var user = '';

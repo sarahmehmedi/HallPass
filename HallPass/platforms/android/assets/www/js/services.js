@@ -154,6 +154,7 @@
     }
   }
 })
+//can be used for chats but cannot seem to get firebase to work properly
 .factory("Rooms", function($firebaseArray, Auth){
   var currentUser = Auth.getProfile();
   var ref = firebase.database().ref();
@@ -194,24 +195,24 @@
   // Some fake testing data
   var chats = [{
     id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
+    name: 'COMP 390',
+    lastText: 'Meeting at cuneo rm 203 at 3pm',
   }, {
     id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
+    name: 'COMP 322',
+    lastText: 'Meeting at IC rm 201 at 2pm',
   }, {
     id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
+    name: 'THEO 101',
+    lastText: 'Meeting at Cuneo rm 111 at 4pm',
   }, {
     id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
+    name: 'BIOL',
+    lastText: 'Meeting at Cuneo rm 111 at 7:30pm',
   }, {
     id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
+    name: 'MATH 101',
+    lastText: 'Meeting at Cuneo rm 222 at 8:33pm',
   }];
 
   return {
