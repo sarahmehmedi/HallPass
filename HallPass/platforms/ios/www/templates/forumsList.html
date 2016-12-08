@@ -13,8 +13,8 @@
       <ion-item class="item" ng-repeat="forum in forums track by $index" type="item-text-wrap"> 
       <a href="#/main/forum/{{forum.id}}"></a>
         <h2>{{forum.classname}}</h2>
-        <p>{{forum.location}}</p>
-        <p>Posted at: {{forum.date | date: 'MM/dd/yyyy, h:mma'}}</p>
+        <p><i class="ion-location"></i> {{forum.location}}</p>
+        <p><i class="ion-clock"></i> Posted at: {{forum.date | date: 'MM/dd/yyyy, h:mma'}}</p>
 
         <ion-option-button class="button-assertive" ng-click="remove(forum)">
           Delete
