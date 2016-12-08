@@ -1,0 +1,29 @@
+{
+  "chats" : {  
+      "0" :{
+      "id" : 0,
+      "name" : "COMP 390",
+      "lastText" : "Meeting at cuneo rm 203 at 3pm"
+    }, 
+      "1" : {
+      "id" : 1,
+      "name" : "COMP 390",
+      "lastText" : "Meeting at cuneo rm 203 at 3pm"
+    }, 
+      "2" : {
+      "id" : 2,
+      "name" : "COMP 390",
+      "lastText" : "Meeting at cuneo rm 203 at 3pm"
+    }, 
+      "3" : {
+      "id" : 3,
+      "name" : "COMP 390",
+      "lastText" : "Meeting at cuneo rm 203 at 3pm"
+    }, 
+      "4" : {
+      "id" : 4,
+      "name" : "COMP 390",
+      "lastText" : "Meeting at cuneo rm 203 at 3pm"
+      }
+  }
+}

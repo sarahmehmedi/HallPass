@@ -1,0 +1,25 @@
+<ion-view view-title="Forum">
+    <ion-nav-buttons side="left">
+        <button class="button icon-left ion-log-out button-stable" ng-click="logOut()">Logout</button>
+
+    </ion-nav-buttons>
+    
+        <ion-nav-buttons side="right">
+          <button class="button button-icon ion-plus" ng-click="modal.show()"> </button>    
+    </ion-nav-buttons>
+
+  <ion-content>
+    <ion-list>
+      <ion-item class="item" ng-repeat="forum in forums track by $index" type="item-text-wrap"> 
+      <a href="#/main/forum/{{forum.id}}"></a>
+        <h2>{{forum.classname}}</h2>
+        <p>{{forum.location}}</p>
+        <p>Posted at: {{forum.date | date: 'MM/dd/yyyy, h:mma'}}</p>
+
+        <ion-option-button class="button-assertive" ng-click="remove(forum)">
+          Delete
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

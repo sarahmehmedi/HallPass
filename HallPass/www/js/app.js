@@ -38,7 +38,7 @@ angular.module('HallPass', ['ionic', 'HallPass.services', 'HallPass.controllers'
         templateUrl: 'templates/forgot.html',
         controller: 'ForgotController'
     })
-    //NEED TO MOVE TO FORUM MAYBE 
+    //to testing what it looks like on browser
     .state('addPost',{
         url: '/addPost',
         templateUrl: 'templates/addPost.html',
@@ -55,17 +55,17 @@ angular.module('HallPass', ['ionic', 'HallPass.services', 'HallPass.controllers'
         url: 'main/forum',
         views: {
             'forum-tab': {
-                templateUrl: 'templates/tab-chats.html',
-                controller: 'ChatsCtrl'
+                templateUrl: 'templates/forumsList.html',
+                controller: 'ForumCtrl'
             }
         }
     })
 
 
-    .state('chat-detail', {
-        url: '/chat-detail/:chatId',
+    .state('main.chat-detail', {
+        url: 'main/forum/chat-detail/:chatId',
         views: {
-            'tab-chats': {
+            'forum-tab': {
                 templateUrl: 'templates/chat-detail.html',
                 controller: 'ChatDetailCtrl'
             }

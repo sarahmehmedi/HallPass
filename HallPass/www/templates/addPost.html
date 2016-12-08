@@ -1,6 +1,26 @@
-﻿<input type="text" placeholder="Enter your class" name="classname">
-<input type="text" placeholer="Enter location" name="location">
+﻿  <html>
+    <body ng-controller="ChatsCtrl">
 
 
-<!-- ng-model="vm.room.name" 
- -->
+      <ion-modal-view>
+        <ion-header-bar class="bar bar-header bar-positive">
+          <h1 class="title">New Post</h1>
+          <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+          <div class="list">
+            <label class="item item-input">
+              <span class="input-label">Class Name</span>
+              <input ng-model="classname" type="text">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Where and When?</span>
+              <input ng-model="lastText" type="text">
+            </label>
+            <button class="button button-full button-positive" ng-click="addPosts(classname, lastText)">Create Post</button>
+          </div>
+        </ion-content>
+      </ion-modal-view>
+      </body>
+</html>
+

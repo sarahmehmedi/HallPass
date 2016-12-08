@@ -138,94 +138,36 @@
     return Utils;
 })
 
-.factory("Message", function($firebaseArray, Rooms, Auth, $q, md5){
-  var selectedRoomId;
-  var chatMessagesForRoom;
-  var ref = firebase.database().ref();
-  return{
-    get: function(roomId){
-      chatMessagesForRoom = $firebaseArray(ref.child('room-messages').child(roomId).orderByChild("createdAt"));
-      return chatMessagesForRoom;
-    },
-    remove: function(chat){
-      chatMessagesForRoom.$remove(chat).then(function(ref){
-        ref.key() === chat.$id;
-      });
-    }
-  }
-})
-//can be used for chats but cannot seem to get firebase to work properly
-.factory("Rooms", function($firebaseArray, Auth){
-  var currentUser = Auth.getProfile();
-  var ref = firebase.database().ref();
-  var rooms = $firebaseArray(ref.child('rooms'));
-  return{
-    all: function(){
-      rooms.$loaded().then(function(response){
-        angular.forEach(response, function(room){
-          ref.child('room-messages').child(room.$id)
-          .orderByChild("createdAt")
-          .limitToLast(1)
-          .on("child_added", function(snapshot){
-            room["last_message_content"] = snapshot.val().content;
-          });
-        })
-      });
-      return rooms;
-    },
 
-    get: function(roomId){
-      return rooms.$getRecord(roomId);
-    },
-    save: function(room){
-      room.createdAt = Firebase.ServerValue.TIMESTAMP;
-      room.ownerId = currentUser.id;
-      rooms.$add(room);
-
-    }
-  }
-})
-// .factory("Items", function($firebaseArray) {
-//   var itemsRef = new Firebase("https://<YOUR-FIREBASE-APP>.firebaseio.com/items");
-//   return $firebaseArray(itemsRef);
-// })
-.factory('Chats', function() {
+.factory('Forums', function(FURL, $firebaseArray, $firebaseAuth, Auth, Utils) {
   // Might use a resource here that returns a JSON array
 
-  // Some fake testing data
-  var chats = [{
-    id: 0,
-    name: 'COMP 390',
-    lastText: 'Meeting at cuneo rm 203 at 3pm',
-  }, {
-    id: 1,
-    name: 'COMP 322',
-    lastText: 'Meeting at IC rm 201 at 2pm',
-  }, {
-    id: 2,
-    name: 'THEO 101',
-    lastText: 'Meeting at Cuneo rm 111 at 4pm',
-  }, {
-    id: 3,
-    name: 'BIOL',
-    lastText: 'Meeting at Cuneo rm 111 at 7:30pm',
-  }, {
-    id: 4,
-    name: 'MATH 101',
-    lastText: 'Meeting at Cuneo rm 222 at 8:33pm',
-  }];
-
+  var forums = [];
+  var i = 0;
   return {
     all: function() {
-      return chats;
+    //  var rooms = $firebaseArray(ref.child('chats'));
+      //var chatRef = firebase.database().ref('chats');
+    // var ref = firebase.database().ref();
+    // var auth = $firebaseAuth();
+    // var messagesRef = $firebaseArray(firebase.database().ref().child("chats"));
+
+      // var convertedStrings = JSON.stringify(chats);
+      // var tests= JSON.parse(convertedStrings);
+      // console.log(messagesRef);
+      return forums;
     },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
+    add: function(id, classname, location, date){
+      forums[i++] = {'id' : id, 'classname' : classname, 'location' : location, 'date' : date};
+
     },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
+    remove: function(forum) {
+      forums.splice(forums.indexOf(forum), 1);
+    },
+    get: function(forumId) {
+      for (var i = 0; i < forums.length; i++) {
+        if (forums[i].id === parseInt(forumId)) {
+          return forums[i];
         }
       }
       return null;

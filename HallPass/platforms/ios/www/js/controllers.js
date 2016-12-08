@@ -18,7 +18,7 @@
                   // $log.log("User ID:" + authData);
                   Utils.hide();
                   $state.go('main.forum');
-                  $scope.setCurrentUsername(data.username);
+                 // $scope.setCurrentUsername("test");
                   //var username = $scope.setCurrentUsername(data.username);
                   //$log.log("Starter page","Home");
 
@@ -78,36 +78,46 @@
     };
 })
 
-.controller('ChatsCtrl', function($scope, Chats, $ionicPopup){
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat){
-    Chats.remove(chat);
+.controller('ForumCtrl', function($scope, Forums, $ionicModal){
+  
+  //test data
+  Forums.add(0, "COMP 322", 'meeting at cuneo', '12-23');
+  Forums.add(1, 'COMP 322', 'meeting at Ic', '123');
+  Forums.add(2, 'COMP 322', 'meeting at Ic', '123333');
+
+
+  $scope.forums = Forums.all();
+  $scope.remove = function(forum){
+    Forums.remove(forum);
   };
 
-  $scope.showAddPost = function(){
+  $ionicModal.fromTemplateUrl('templates/addPost.html', 
+    {
+      scope: $scope
+    }).then(function(modal){
+      $scope.modal = modal;
+    });
 
-    var popUp = $ionicPopup.show({
-      templateUrl: './templates/addPost.html',
-      title: 'Post below',
-      scope: $scope,
-      buttons: [
-      {text: 'Cancel'},
-      {
-        text: '<b>Save<b>',
-        type: 'button-positive',
-        onTap: function(e){
-          var firebaseObject = new Firebase("https://hallpass-66cd0.firebaseio.com/posts");
-          var sync = firebaseObject.set(firebaseObject);
-          $scope.posts = sync.$firebaseArray();
-        }
-    }]
-    })
+    $scope.addPosts = function(classname, location, date){
+      var date = new Date();
+//      $scope.FromDate = date.getMonth() + '/' + date.getDate() + "/" + date.getFullYear() + " at " + (""+date.getDate()).slice(-2);
+     // date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+      var id = 5;
+      console.log(classname + location + date);
+      Forums.add(id++, classname, location, date);
+      $scope.modal.hide();
+    };
 
-  }
+    $scope.logOut = function () {
+        Auth.logout();
+        $state.go('login');
+    };
 })
 
-.controller('ChatDetailCtrl'['$scope', '$stateParams', 'Chats', function($scope, $stateParams, Chats){
-  $scope.chat = Chats.get($stateParams.chatId);
+.controller('ChatDetailCtrl'['$scope', '$stateParams', 'Forums', function($scope, $stateParams, Chats){
+  console.log("ChatDetailCtrl arrived")
+  var chatId = $stateParams.id;
+  $scope.chat = Chats.get(chatId);
 }])
 
 
@@ -311,18 +321,5 @@
 
 //     });  
                  
-// });
-
-// .service('SessionData', function(){
-//   var user = '';
-
-//   return{
-//     getUser: function(){
-//       return user;
-//     },
-//     setUser: function(value){
-//       user = value;
-//     }
-//   };
 // });
 
