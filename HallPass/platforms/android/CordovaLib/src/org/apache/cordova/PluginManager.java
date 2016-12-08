@@ -28,6 +28,10 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Debug;
+<<<<<<< HEAD
+=======
+import android.util.Log;
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 
 /**
  * PluginManager is exposed to JavaScript in the Cordova WebView.
@@ -121,7 +125,11 @@ public class PluginManager {
     public void exec(final String service, final String action, final String callbackId, final String rawArgs) {
         CordovaPlugin plugin = getPlugin(service);
         if (plugin == null) {
+<<<<<<< HEAD
             LOG.d(TAG, "exec() call to unknown plugin: " + service);
+=======
+            Log.d(TAG, "exec() call to unknown plugin: " + service);
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
             PluginResult cr = new PluginResult(PluginResult.Status.CLASS_NOT_FOUND_EXCEPTION);
             app.sendPluginResult(cr, callbackId);
             return;
@@ -133,7 +141,11 @@ public class PluginManager {
             long duration = System.currentTimeMillis() - pluginStartTime;
 
             if (duration > SLOW_EXEC_WARNING_THRESHOLD) {
+<<<<<<< HEAD
                 LOG.w(TAG, "THREAD WARNING: exec() call to " + service + "." + action + " blocked the main thread for " + duration + "ms. Plugin should use CordovaInterface.getThreadPool().");
+=======
+                Log.w(TAG, "THREAD WARNING: exec() call to " + service + "." + action + " blocked the main thread for " + duration + "ms. Plugin should use CordovaInterface.getThreadPool().");
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
             }
             if (!wasValidAction) {
                 PluginResult cr = new PluginResult(PluginResult.Status.INVALID_ACTION);
@@ -143,7 +155,11 @@ public class PluginManager {
             PluginResult cr = new PluginResult(PluginResult.Status.JSON_EXCEPTION);
             callbackContext.sendPluginResult(cr);
         } catch (Exception e) {
+<<<<<<< HEAD
             LOG.e(TAG, "Uncaught exception from plugin", e);
+=======
+            Log.e(TAG, "Uncaught exception from plugin", e);
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
             callbackContext.error(e.getMessage());
         }
     }
@@ -221,9 +237,15 @@ public class PluginManager {
      * @param handler           The HttpAuthHandler used to set the WebView's response
      * @param host              The host requiring authentication
      * @param realm             The realm for which authentication is required
+<<<<<<< HEAD
      *
      * @return                  Returns True if there is a plugin which will resolve this auth challenge, otherwise False
      *
+=======
+     * 
+     * @return                  Returns True if there is a plugin which will resolve this auth challenge, otherwise False
+     * 
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
      */
     public boolean onReceivedHttpAuthRequest(CordovaWebView view, ICordovaHttpAuthHandler handler, String host, String realm) {
         for (CordovaPlugin plugin : this.pluginMap.values()) {
@@ -233,7 +255,11 @@ public class PluginManager {
         }
         return false;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     /**
      * Called when he system received an SSL client certificate request.  Plugin can use
      * the supplied ClientCertRequest to process this certificate challenge.

@@ -1,6 +1,24 @@
 ﻿
 <ion-view view-title="Forum"  ng-init="checkUser()">
+   
+     <ion-nav-buttons side="left">
+        <button class="button icon-left ion-log-out button-stable" ng-click="logOut()">Logout</button>
+    </ion-nav-buttons>
 
+    <ion-nav-buttons side="right">
+        <button class="button button-icon ion-plus" ng-click="addPost()"> </button>
+    </ion-nav-buttons>
+    <ion-content>
+        <ion-list>
+            <<ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in items">
+                <h2>Hello, {{item}}!</h2>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+
+
+    <!--
     <ion-nav-buttons side="left">
         <button class="button icon-left ion-log-out button-stable" ng-click="logOut()">Logout</button>
     </ion-nav-buttons>
@@ -19,6 +37,7 @@
 
         <script src="js/controllers.js"></script>
         <script src="js/forums.js"></script>
+        -->
 
 </ion-view>
 

@@ -51,11 +51,18 @@ var cordova = require('cordova'),
         // For the ONLINE_EVENT to be viable, it would need to intercept all event
         // listeners (both through addEventListener and window.ononline) as well
         // as set the navigator property itself.
+<<<<<<< HEAD
         ONLINE_EVENT: 2,
         EVAL_BRIDGE: 3
     },
     jsToNativeBridgeMode,  // Set lazily.
     nativeToJsBridgeMode = nativeToJsModes.EVAL_BRIDGE,
+=======
+        ONLINE_EVENT: 2
+    },
+    jsToNativeBridgeMode,  // Set lazily.
+    nativeToJsBridgeMode = nativeToJsModes.ONLINE_EVENT,
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     pollEnabled = false,
     bridgeSecret = -1;
 
@@ -78,9 +85,12 @@ function androidExec(success, fail, service, action, args) {
         androidExec.setJsToNativeBridgeMode(jsToNativeModes.JS_OBJECT);
     }
 
+<<<<<<< HEAD
     // If args is not provided, default to an empty array
     args = args || [];
 
+=======
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     // Process any ArrayBuffers in the args into a string.
     for (var i = 0; i < args.length; i++) {
         if (utils.typeName(args[i]) == 'ArrayBuffer') {
@@ -90,6 +100,10 @@ function androidExec(success, fail, service, action, args) {
 
     var callbackId = service + cordova.callbackId++,
         argsJson = JSON.stringify(args);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     if (success || fail) {
         cordova.callbacks[callbackId] = {success:success, fail:fail};
     }
@@ -109,6 +123,7 @@ function androidExec(success, fail, service, action, args) {
 }
 
 androidExec.init = function() {
+<<<<<<< HEAD
     //CB-11828
     //This failsafe checks the version of Android and if it's Jellybean, it switches it to
     //using the Online Event bridge for communicating from Native to JS
@@ -120,6 +135,8 @@ androidExec.init = function() {
       nativeToJsBridgeMode = nativeToJsModes.ONLINE_EVENT;
     }
 
+=======
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     bridgeSecret = +prompt('', 'gap_init:' + nativeToJsBridgeMode);
     channel.onNativeReady.fire();
 };

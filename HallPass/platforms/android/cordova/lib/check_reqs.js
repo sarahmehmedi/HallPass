@@ -142,6 +142,7 @@ module.exports.check_java = function() {
             }
         }
     }).then(function() {
+<<<<<<< HEAD
             var msg =
                 'Failed to run "javac -version", make sure that you have a JDK installed.\n' +
                 'You can get it from: http://www.oracle.com/technetwork/java/javase/downloads.\n';
@@ -157,6 +158,24 @@ module.exports.check_java = function() {
                     return match && match[1];
                 });
         });
+=======
+        var msg =
+            'Failed to run "java -version", make sure that you have a JDK installed.\n' +
+            'You can get it from: http://www.oracle.com/technetwork/java/javase/downloads.\n';
+        if (process.env['JAVA_HOME']) {
+            msg += 'Your JAVA_HOME is invalid: ' + process.env['JAVA_HOME'] + '\n';
+        }
+        return tryCommand('java -version', msg)
+        .then(function() {
+            // We use tryCommand with catchStderr = true, because
+            // javac writes version info to stderr instead of stdout
+            return tryCommand('javac -version', msg, true);
+        }).then(function (output) {
+            var match = /javac ((?:\d+\.)+(?:\d+))/i.exec(output)[1];
+            return match && match[1];
+        });
+    });
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 };
 
 // Returns a promise.
@@ -226,7 +245,10 @@ module.exports.check_android = function() {
             throw new CordovaError('\'ANDROID_HOME\' environment variable is set to non-existent path: ' + process.env['ANDROID_HOME'] +
                 '\nTry update it manually to point to valid SDK directory.');
         }
+<<<<<<< HEAD
         return hasAndroidHome;
+=======
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     });
 };
 
@@ -238,13 +260,21 @@ module.exports.getAbsoluteAndroidCmd = function () {
     return cmd.replace(/(\s)/g, '\\$1');
 };
 
+<<<<<<< HEAD
 module.exports.check_android_target = function(originalError) {
+=======
+module.exports.check_android_target = function(valid_target) {
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     // valid_target can look like:
     //   android-19
     //   android-L
     //   Google Inc.:Google APIs:20
     //   Google Inc.:Glass Development Kit Preview:20
+<<<<<<< HEAD
     var valid_target = module.exports.get_target();
+=======
+    if (!valid_target) valid_target = module.exports.get_target();
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     var msg = 'Android SDK not found. Make sure that it is installed. If it is not at the default location, set the ANDROID_HOME environment variable.';
     return tryCommand('android list targets --compact', msg)
     .then(function(output) {
@@ -254,21 +284,30 @@ module.exports.check_android_target = function(originalError) {
         }
 
         var androidCmd = module.exports.getAbsoluteAndroidCmd();
+<<<<<<< HEAD
         var msg = 'Please install Android target: "' + valid_target + '".\n\n' +
+=======
+        throw new CordovaError('Please install Android target: "' + valid_target + '".\n\n' +
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
             'Hint: Open the SDK manager by running: ' + androidCmd + '\n' +
             'You will require:\n' +
             '1. "SDK Platform" for ' + valid_target + '\n' +
             '2. "Android SDK Platform-tools (latest)\n' +
+<<<<<<< HEAD
             '3. "Android SDK Build-tools" (latest)';
         if (originalError) {
             msg = originalError + '\n' + msg;
         }
         throw new CordovaError(msg);
+=======
+            '3. "Android SDK Build-tools" (latest)');
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     });
 };
 
 // Returns a promise.
 module.exports.run = function() {
+<<<<<<< HEAD
      return Q.all([this.check_java(), this.check_android()])
      .then(function(values) {
          console.log('ANDROID_HOME=' + process.env['ANDROID_HOME']);
@@ -286,6 +325,15 @@ module.exports.run = function() {
 };
 
 
+=======
+    return Q.all([this.check_java(), this.check_android().then(this.check_android_target)])
+    .then(function() {
+        console.log('ANDROID_HOME=' + process.env['ANDROID_HOME']);
+        console.log('JAVA_HOME=' + process.env['JAVA_HOME']);
+    });
+};
+
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 /**
  * Object thar represents one of requirements for current platform.
  * @param {String} id         The unique identifier for this requirements.

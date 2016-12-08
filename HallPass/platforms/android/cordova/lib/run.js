@@ -25,8 +25,12 @@ var path  = require('path'),
     build = require('./build'),
     emulator = require('./emulator'),
     device   = require('./device'),
+<<<<<<< HEAD
     Q = require('q'),
     events = require('cordova-common').events;
+=======
+    Q = require('q');
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 
 function getInstallTarget(runOptions) {
     var install_target;
@@ -63,10 +67,17 @@ function getInstallTarget(runOptions) {
             return device.list()
             .then(function(device_list) {
                 if (device_list.length > 0) {
+<<<<<<< HEAD
                     events.emit('warn', 'No target specified, deploying to device \'' + device_list[0] + '\'.');
                     install_target = device_list[0];
                 } else {
                     events.emit('warn', 'No target specified and no devices found, deploying to emulator');
+=======
+                    self.events.emit('warn', 'No target specified, deploying to device \'' + device_list[0] + '\'.');
+                    install_target = device_list[0];
+                } else {
+                    self.events.emit('warn', 'No target specified, deploying to emulator');
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
                     install_target = '--emulator';
                 }
             });

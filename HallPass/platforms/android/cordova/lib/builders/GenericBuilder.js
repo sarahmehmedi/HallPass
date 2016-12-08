@@ -93,6 +93,7 @@ GenericBuilder.prototype.extractRealProjectNameFromManifest = function () {
 module.exports = GenericBuilder;
 
 function apkSorter(fileA, fileB) {
+<<<<<<< HEAD
     // De-prioritize unsigned builds
     var unsignedRE = /-unsigned/;
     if (unsignedRE.exec(fileA)) {
@@ -101,6 +102,8 @@ function apkSorter(fileA, fileB) {
         return -1;
     }
 
+=======
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     var timeDiff = fs.statSync(fileA).mtime - fs.statSync(fileB).mtime;
     return timeDiff === 0 ? fileA.length - fileB.length : timeDiff;
 }
@@ -136,8 +139,12 @@ function findOutputApksHelper(dir, build_type, arch) {
         return !!/-x86|-arm/.exec(path.basename(p)) == archSpecific;
         /*jshint +W018 */
     });
+<<<<<<< HEAD
 
     if (archSpecific && ret.length > 1 && arch) {
+=======
+    if (archSpecific && ret.length > 1) {
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
         ret = ret.filter(function(p) {
             return path.basename(p).indexOf('-' + arch) != -1;
         });

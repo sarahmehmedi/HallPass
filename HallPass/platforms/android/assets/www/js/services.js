@@ -74,6 +74,7 @@
 
         signInWithProvider: function (provider) {
             return Auth.signInWithPopup('google');
+<<<<<<< HEAD
         },
         saveProfile: function(user){
           localStorage.setItem("HallPass.current_user", JSON.stringify(user));
@@ -83,6 +84,9 @@
           return user && JSON.parse(user);
         }
 
+=======
+        }
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     };
     return Auth;
 })
@@ -138,6 +142,7 @@
     return Utils;
 })
 
+<<<<<<< HEAD
 
 .factory('Forums', function(FURL, $firebaseArray, $firebaseAuth, Auth, Utils) {
   // Might use a resource here that returns a JSON array
@@ -179,3 +184,18 @@
 
 
 
+=======
+.factory('Items', function () {
+    // Might use a resource here that returns a JSON array
+
+    // Some fake testing data
+    var items = ['Ali', 'Sarah', 'Fahaad'];
+
+    return {
+        all: function () {
+            return items;
+        },
+       
+    };
+});
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd

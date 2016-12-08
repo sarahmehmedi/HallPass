@@ -20,7 +20,10 @@ package org.apache.cordova;
 
 import android.view.KeyEvent;
 import android.view.View;
+<<<<<<< HEAD
 import android.webkit.ValueCallback;
+=======
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 
 /**
  * Interface for all Cordova engines.
@@ -59,9 +62,12 @@ public interface CordovaWebViewEngine {
     /** Clean up all resources associated with the WebView. */
     void destroy();
 
+<<<<<<< HEAD
     /** Add the evaulate Javascript method **/
     void evaluateJavascript(String js, ValueCallback<String> callback);
 
+=======
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     /**
      * Used to retrieve the associated CordovaWebView given a View without knowing the type of Engine.
      * E.g. ((CordovaWebView.EngineView)activity.findViewById(android.R.id.webView)).getCordovaWebView();

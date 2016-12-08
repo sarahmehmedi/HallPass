@@ -1,13 +1,20 @@
 ﻿angular.module('HallPass.controllers', [])
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 .controller('LoginController', function ($scope, $state, $cordovaOauth, $localStorage, $location, $http, $ionicPopup, $firebaseAuth, $firebaseObject, $log, Auth, FURL, Utils) {
 
     var auth = $firebaseAuth();
     var ref = firebase.database().ref();
     var userkey = "";
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     $scope.signIn = function (user) {
         // $log.log("Sent");
         if (angular.isDefined(user)) {
@@ -18,8 +25,12 @@
                   // $log.log("User ID:" + authData);
                   Utils.hide();
                   $state.go('main.forum');
+<<<<<<< HEAD
                  // $scope.setCurrentUsername("test");
                   //var username = $scope.setCurrentUsername(data.username);
+=======
+                  $scope.setCurrentUsername(data.username);
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
                   //$log.log("Starter page","Home");
 
               }, function (err) {
@@ -78,6 +89,7 @@
     };
 })
 
+<<<<<<< HEAD
 .controller('ForumCtrl', function($scope, Forums, $ionicModal){
   
   //test data
@@ -321,3 +333,30 @@
                  
 // });
 
+=======
+// .controller('ForumController', function($scope, $ionicListDelegate, Posts){
+//     $scope.posts = Posts;
+
+//     $scope.addPost = function (){
+//       var name = prompt('List class, date, time, location of study session.');
+//       if(name) {
+//         $scope.posts.$addPost({
+//           'name' : name
+//         });
+//       }
+
+//     }
+// });
+
+.controller('ForumController', function ($scope, $state, Items, $cordovaOauth, $localStorage, $log, $location, $http, $ionicPopup, $firebaseObject, $firebaseAuth, Auth, FURL, Utils) {
+    var ref = firebase.database().ref();
+    $scope.authObj = $firebaseAuth();
+
+    $scope.logOut = function () {
+        Auth.logout();
+        $state.go('login');
+    };
+    $scope.items = Items.all();
+    
+});
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd

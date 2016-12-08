@@ -22,6 +22,10 @@ package org.apache.cordova;
 import java.util.List;
 
 import android.app.Activity;
+<<<<<<< HEAD
+=======
+import android.util.Log;
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 
 @Deprecated // Use Whitelist, CordovaPrefences, etc. directly.
 public class Config {
@@ -60,7 +64,11 @@ public class Config {
     public static List<PluginEntry> getPluginEntries() {
         return parser.getPluginEntries();
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     public static CordovaPreferences getPreferences() {
         return parser.getPreferences();
     }

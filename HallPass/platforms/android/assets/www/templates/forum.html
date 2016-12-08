@@ -1,11 +1,34 @@
 ﻿
 <ion-view view-title="Forum"  ng-init="checkUser()">
+<<<<<<< HEAD
 
+=======
+   
+     <ion-nav-buttons side="left">
+        <button class="button icon-left ion-log-out button-stable" ng-click="logOut()">Logout</button>
+    </ion-nav-buttons>
+
+    <ion-nav-buttons side="right">
+        <button class="button button-icon ion-plus" ng-click="addPost()"> </button>
+    </ion-nav-buttons>
+    <ion-content>
+        <ion-list>
+            <<ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="item in items">
+                <h2>Hello, {{item}}!</h2>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+
+
+    <!--
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     <ion-nav-buttons side="left">
         <button class="button icon-left ion-log-out button-stable" ng-click="logOut()">Logout</button>
     </ion-nav-buttons>
 
     <ion-nav-buttons side="right">
+<<<<<<< HEAD
           <button class="button button-icon ion-plus" ng-click="showAddPost()"> </button>    
     </ion-nav-buttons>
 
@@ -19,6 +42,28 @@
 
         <script src="js/controllers.js"></script>
         <script src="js/forums.js"></script>
+=======
+          <button class="button button-icon ion-plus" ng-click="addPost()"> </button>    
+    </ion-nav-buttons>
+
+
+    <ion-content class="padding">
+        <p> There are no new posts. </p>
+        <ion-list>
+            <ion-item ng-repeat="item in items" ng-class="{purchased:item.status == 'purchased'}">
+            {{item.name}}
+            <ion-option-button class='button-royal' ng-click="purchaseItem(item)">
+                <i class="icon ion-checkmark"></i>
+                </ion-option-button>
+            </ion-item>
+        </ion-list>
+
+    </ion-content>
+
+        <script src="js/controllers.js"></script>
+        <script src="js/forums.js"></script>
+        -->
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 
 </ion-view>
 

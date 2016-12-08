@@ -34,6 +34,10 @@ import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
+<<<<<<< HEAD
+=======
+import android.util.Log;
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,7 +53,11 @@ import android.widget.FrameLayout;
  * html file that contains the application.
  *
  * As an example:
+<<<<<<< HEAD
  *
+=======
+ * 
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
  * <pre>
  *     package org.apache.cordova.examples;
  *
@@ -66,8 +74,13 @@ import android.widget.FrameLayout;
  *       }
  *     }
  * </pre>
+<<<<<<< HEAD
  *
  * Cordova xml configuration: Cordova uses a configuration file at
+=======
+ * 
+ * Cordova xml configuration: Cordova uses a configuration file at 
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
  * res/xml/config.xml to specify its settings. See "The config.xml File"
  * guide in cordova-docs at http://cordova.apache.org/docs for the documentation
  * for the configuration. The use of the set*Property() methods is
@@ -103,6 +116,7 @@ public class CordovaActivity extends Activity {
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+<<<<<<< HEAD
         // need to activate preferences before super.onCreate to avoid "requestFeature() must be called before adding content" exception
         loadConfig();
 
@@ -112,11 +126,19 @@ public class CordovaActivity extends Activity {
         LOG.i(TAG, "Apache Cordova native platform version " + CordovaWebView.CORDOVA_VERSION + " is starting");
         LOG.d(TAG, "CordovaActivity.onCreate()");
 
+=======
+        LOG.i(TAG, "Apache Cordova native platform version " + CordovaWebView.CORDOVA_VERSION + " is starting");
+        LOG.d(TAG, "CordovaActivity.onCreate()");
+
+        // need to activate preferences before super.onCreate to avoid "requestFeature() must be called before adding content" exception
+        loadConfig();
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
         if (!preferences.getBoolean("ShowTitle", false)) {
             getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         }
 
         if (preferences.getBoolean("SetFullscreen", false)) {
+<<<<<<< HEAD
             LOG.d(TAG, "The SetFullscreen configuration is deprecated in favor of Fullscreen, and will be removed in a future version.");
             preferences.set("Fullscreen", true);
         }
@@ -124,6 +146,13 @@ public class CordovaActivity extends Activity {
             // NOTE: use the FullscreenNotImmersive configuration key to set the activity in a REAL full screen
             // (as was the case in previous cordova versions)
             if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) && !preferences.getBoolean("FullscreenNotImmersive", false)) {
+=======
+            Log.d(TAG, "The SetFullscreen configuration is deprecated in favor of Fullscreen, and will be removed in a future version.");
+            preferences.set("Fullscreen", true);
+        }
+        if (preferences.getBoolean("Fullscreen", false)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
                 immersiveMode = true;
             } else {
                 getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -180,6 +209,7 @@ public class CordovaActivity extends Activity {
         setContentView(appView.getView());
 
         if (preferences.contains("BackgroundColor")) {
+<<<<<<< HEAD
             try {
                 int backgroundColor = preferences.getInteger("BackgroundColor", Color.BLACK);
                 // Background of activity:
@@ -188,6 +218,11 @@ public class CordovaActivity extends Activity {
             catch (NumberFormatException e){
                 e.printStackTrace();
             }
+=======
+            int backgroundColor = preferences.getInteger("BackgroundColor", Color.BLACK);
+            // Background of activity:
+            appView.getView().setBackgroundColor(backgroundColor);
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
         }
 
         appView.getView().requestFocusFromTouch();

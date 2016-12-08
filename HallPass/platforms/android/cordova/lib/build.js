@@ -39,7 +39,11 @@ function parseOpts(options, resolvedTarget, projectRoot) {
         prepenv: Boolean,
         versionCode: String,
         minSdkVersion: String,
+<<<<<<< HEAD
         gradleArg: [String, Array],
+=======
+        gradleArg: String,
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
         keystore: path,
         alias: String,
         storePassword: String,
@@ -66,9 +70,14 @@ function parseOpts(options, resolvedTarget, projectRoot) {
     if (options.argv.minSdkVersion)
         ret.extraArgs.push('-PcdvMinSdkVersion=' + options.argv.minSdkVersion);
 
+<<<<<<< HEAD
     if (options.argv.gradleArg) {
         ret.extraArgs = ret.extraArgs.concat(options.argv.gradleArg);
     }
+=======
+    if (options.argv.gradleArg)
+        ret.extraArgs.push(options.argv.gradleArg);
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 
     var packageArgs = {};
 
@@ -90,7 +99,12 @@ function parseOpts(options, resolvedTarget, projectRoot) {
         }
         events.emit('log', 'Reading build config file: '+ path.resolve(buildConfig));
         var buildjson = fs.readFileSync(buildConfig, 'utf8');
+<<<<<<< HEAD
         var config = JSON.parse(buildjson.replace(/^\ufeff/, '')); // Remove BOM
+=======
+        //var config = JSON.parse(fs.readFileSync(buildConfig, 'utf8'));
+        var config = JSON.parse(buildjson);
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
         if (config.android && config.android[ret.buildType]) {
             var androidInfo = config.android[ret.buildType];
             if(androidInfo.keystore && !packageArgs.keystore) {
@@ -149,16 +163,28 @@ module.exports.runClean = function(options) {
 module.exports.run = function(options, optResolvedTarget) {
     var opts = parseOpts(options, optResolvedTarget, this.root);
     var builder = builders.getBuilder(opts.buildMethod);
+<<<<<<< HEAD
     return builder.prepEnv(opts)
     .then(function() {
         if (opts.prepEnv) {
             events.emit('verbose', 'Build file successfully prepared.');
+=======
+    var self = this;
+    return builder.prepEnv(opts)
+    .then(function() {
+        if (opts.prepEnv) {
+            self.events.emit('verbose', 'Build file successfully prepared.');
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
             return;
         }
         return builder.build(opts)
         .then(function() {
             var apkPaths = builder.findOutputApks(opts.buildType, opts.arch);
+<<<<<<< HEAD
             events.emit('log', 'Built the following apk(s): \n\t' + apkPaths.join('\n\t'));
+=======
+            self.events.emit('log', 'Built the following apk(s): \n\t' + apkPaths.join('\n\t'));
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
             return {
                 apkPaths: apkPaths,
                 buildType: opts.buildType,
@@ -188,6 +214,7 @@ module.exports.detectArchitecture = function(target) {
             // adb kill-server doesn't seem to do the trick.
             // Could probably find a x-platform version of killall, but I'm not actually
             // sure that this scenario even happens on non-OSX machines.
+<<<<<<< HEAD
             events.emit('verbose', 'adb timed out while detecting device/emulator architecture. Killing adb and trying again.');
             return spawn('killall', ['adb'])
             .then(function() {
@@ -195,11 +222,24 @@ module.exports.detectArchitecture = function(target) {
                 .then(null, function() {
                     // The double kill is sadly often necessary, at least on mac.
                     events.emit('warn', 'adb timed out a second time while detecting device/emulator architecture. Killing adb and trying again.');
+=======
+            return spawn('killall', ['adb'])
+            .then(function() {
+                events.emit('verbose', 'adb seems hung. retrying.');
+                return helper()
+                .then(null, function() {
+                    // The double kill is sadly often necessary, at least on mac.
+                    events.emit('warn', 'Now device not found... restarting adb again.');
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
                     return spawn('killall', ['adb'])
                     .then(function() {
                         return helper()
                         .then(null, function() {
+<<<<<<< HEAD
                             return Q.reject(new CordovaError('adb timed out a third time while detecting device/emulator architecture. Try unplugging & replugging the device.'));
+=======
+                            return Q.reject(new CordovaError('USB is flakey. Try unplugging & replugging the device.'));
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
                         });
                     });
                 });

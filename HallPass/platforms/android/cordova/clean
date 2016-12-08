@@ -21,7 +21,10 @@
 
 var Api = require('./Api');
 var path  = require('path');
+<<<<<<< HEAD
 var nopt = require('nopt');
+=======
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 
 // Support basic help commands
 if(['--help', '/?', '-h', 'help', '-help', '/help'].indexOf(process.argv[2]) >= 0) {
@@ -30,6 +33,7 @@ if(['--help', '/?', '-h', 'help', '-help', '/help'].indexOf(process.argv[2]) >= 
     process.exit(0);
 }
 
+<<<<<<< HEAD
 // Do some basic argument parsing
 var opts = nopt({
     'verbose' : Boolean,
@@ -45,6 +49,9 @@ opts.noPrepare = true;
 require('./loggingHelper').adjustLoggerLevel(opts);
 
 new Api().clean(opts)
+=======
+new Api().clean({argv: process.argv.slice(2)})
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 .catch(function(err) {
     console.error(err.stack);
     process.exit(2);

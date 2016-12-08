@@ -26,6 +26,10 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+<<<<<<< HEAD
+=======
+import android.util.Log;
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -61,7 +65,11 @@ public class SystemWebChromeClient extends WebChromeClient {
 
     // the video progress view
     private View mVideoProgressView;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     private CordovaDialogsHelper dialogsHelper;
     private Context appContext;
 
@@ -192,7 +200,11 @@ public class SystemWebChromeClient extends WebChromeClient {
         }
 
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     // API level 7 is required for this, see if we could lower this using something else
     @Override
     public void onShowCustomView(View view, WebChromeClient.CustomViewCallback callback) {
@@ -212,9 +224,15 @@ public class SystemWebChromeClient extends WebChromeClient {
      */
     public View getVideoLoadingProgressView() {
 
+<<<<<<< HEAD
         if (mVideoProgressView == null) {
             // Create a new Loading view programmatically.
 
+=======
+        if (mVideoProgressView == null) {            
+            // Create a new Loading view programmatically.
+            
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
             // create the linear layout
             LinearLayout layout = new LinearLayout(parentEngine.getView().getContext());
             layout.setOrientation(LinearLayout.VERTICAL);
@@ -225,12 +243,21 @@ public class SystemWebChromeClient extends WebChromeClient {
             ProgressBar bar = new ProgressBar(parentEngine.getView().getContext());
             LinearLayout.LayoutParams barLayoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
             barLayoutParams.gravity = Gravity.CENTER;
+<<<<<<< HEAD
             bar.setLayoutParams(barLayoutParams);
             layout.addView(bar);
 
             mVideoProgressView = layout;
         }
     return mVideoProgressView;
+=======
+            bar.setLayoutParams(barLayoutParams);   
+            layout.addView(bar);
+            
+            mVideoProgressView = layout;
+        }
+    return mVideoProgressView; 
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     }
 
     // <input type=file> support:
@@ -239,11 +266,19 @@ public class SystemWebChromeClient extends WebChromeClient {
     public void openFileChooser(ValueCallback<Uri> uploadMsg) {
         this.openFileChooser(uploadMsg, "*/*");
     }
+<<<<<<< HEAD
 
     public void openFileChooser( ValueCallback<Uri> uploadMsg, String acceptType ) {
         this.openFileChooser(uploadMsg, acceptType, null);
     }
 
+=======
+    
+    public void openFileChooser( ValueCallback<Uri> uploadMsg, String acceptType ) {
+        this.openFileChooser(uploadMsg, acceptType, null);
+    }
+    
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     public void openFileChooser(final ValueCallback<Uri> uploadMsg, String acceptType, String capture)
     {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -253,7 +288,11 @@ public class SystemWebChromeClient extends WebChromeClient {
             @Override
             public void onActivityResult(int requestCode, int resultCode, Intent intent) {
                 Uri result = intent == null || resultCode != Activity.RESULT_OK ? null : intent.getData();
+<<<<<<< HEAD
                 LOG.d(LOG_TAG, "Receive file chooser URL: " + result);
+=======
+                Log.d(LOG_TAG, "Receive file chooser URL: " + result);
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
                 uploadMsg.onReceiveValue(result);
             }
         }, intent, FILECHOOSER_RESULTCODE);
@@ -268,12 +307,20 @@ public class SystemWebChromeClient extends WebChromeClient {
                 @Override
                 public void onActivityResult(int requestCode, int resultCode, Intent intent) {
                     Uri[] result = WebChromeClient.FileChooserParams.parseResult(resultCode, intent);
+<<<<<<< HEAD
                     LOG.d(LOG_TAG, "Receive file chooser URL: " + result);
+=======
+                    Log.d(LOG_TAG, "Receive file chooser URL: " + result);
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
                     filePathsCallback.onReceiveValue(result);
                 }
             }, intent, FILECHOOSER_RESULTCODE);
         } catch (ActivityNotFoundException e) {
+<<<<<<< HEAD
             LOG.w("No activity found to handle file chooser intent.", e);
+=======
+            Log.w("No activity found to handle file chooser intent.", e);
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
             filePathsCallback.onReceiveValue(null);
         }
         return true;
@@ -282,7 +329,11 @@ public class SystemWebChromeClient extends WebChromeClient {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onPermissionRequest(final PermissionRequest request) {
+<<<<<<< HEAD
         LOG.d(LOG_TAG, "onPermissionRequest: " + Arrays.toString(request.getResources()));
+=======
+        Log.d(LOG_TAG, "onPermissionRequest: " + Arrays.toString(request.getResources()));
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
         request.grant(request.getResources());
     }
 

@@ -79,7 +79,11 @@ AntBuilder.prototype.prepEnv = function(opts) {
             writeBuildXml(path.join(self.root, subProjects[i]));
         }
         if (propertiesObj.systemLibs.length > 0) {
+<<<<<<< HEAD
             throw new CordovaError('Project contains at least one plugin that requires a system library. This is not supported with ANT. Use gradle instead.');
+=======
+            throw new CordovaError('Project contains at least one plugin that requires a system library. This is not supported with ANT. Please build using gradle.');
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
         }
 
         var propertiesFile = opts.buildType + SIGNING_PROPERTIES;
@@ -107,6 +111,7 @@ AntBuilder.prototype.build = function(opts) {
     var args = this.getArgs(opts.buildType == 'debug' ? 'debug' : 'release', opts);
     return check_reqs.check_ant()
     .then(function() {
+<<<<<<< HEAD
         return spawn('ant', args, {stdio: 'pipe'});
     }).progress(function (stdio){
         if (stdio.stderr) {
@@ -123,6 +128,9 @@ AntBuilder.prototype.build = function(opts) {
             });
         }
         return Q.reject(error);
+=======
+        return spawn('ant', args, {stdio: 'inherit'});
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     });
 };
 

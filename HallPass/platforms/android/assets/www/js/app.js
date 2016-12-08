@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 angular.module('HallPass', ['ionic', 'HallPass.services', 'HallPass.controllers', 'HallPass.constants','ngStorage', 'ngCordova', 'firebase', 'ngMessages'])
+=======
+angular.module('HallPass', ['ionic', 'HallPass.services', 'HallPass.controllers', 'HallPass.constants', 'ngStorage', 'ngCordova', 'firebase', 'ngMessages'])
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function (FURL) {
@@ -38,12 +42,15 @@ angular.module('HallPass', ['ionic', 'HallPass.services', 'HallPass.controllers'
         templateUrl: 'templates/forgot.html',
         controller: 'ForgotController'
     })
+<<<<<<< HEAD
     //to testing what it looks like on browser
     .state('addPost',{
         url: '/addPost',
         templateUrl: 'templates/addPost.html',
         //controller: 'AddPostCtrl'
     })
+=======
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 
     .state('main', {
         url: '/',
@@ -55,6 +62,7 @@ angular.module('HallPass', ['ionic', 'HallPass.services', 'HallPass.controllers'
         url: 'main/forum',
         views: {
             'forum-tab': {
+<<<<<<< HEAD
                 templateUrl: 'templates/forumsList.html',
                 controller: 'ForumCtrl'
             }
@@ -78,6 +86,10 @@ angular.module('HallPass', ['ionic', 'HallPass.services', 'HallPass.controllers'
             'tab-account': {
                 templateUrl: 'templates/tab-account.html',
                 controller: 'AccountCtrl'
+=======
+                templateUrl: 'templates/forum.html',
+                controller: 'ForumController'
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
             }
         }
     })
@@ -95,8 +107,12 @@ angular.module('HallPass', ['ionic', 'HallPass.services', 'HallPass.controllers'
         url: 'main/map',
         views: {
             'map-tab': {
+<<<<<<< HEAD
                 templateUrl: 'templates/map.html',
                 controller: 'MapController'
+=======
+                templateUrl: 'templates/map.html'
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
             }
         }
     })

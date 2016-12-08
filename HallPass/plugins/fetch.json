@@ -46,6 +46,7 @@
         },
         "is_top_level": true,
         "variables": {}
+<<<<<<< HEAD
     },
     "cordova-plugin-geolocation": {
         "source": {
@@ -62,5 +63,7 @@
         },
         "is_top_level": false,
         "variables": {}
+=======
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     }
 }

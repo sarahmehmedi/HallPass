@@ -89,7 +89,10 @@ module.exports.install = function(target, buildResults) {
         var pkgName = manifest.getPackageId();
         var launchName = pkgName + '/.' + manifest.getActivity().getName();
         events.emit('log', 'Using apk: ' + apk_path);
+<<<<<<< HEAD
         events.emit('log', 'Package name: ' + pkgName);
+=======
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 
         return Adb.install(resolvedTarget.target, apk_path, {replace: true})
         .catch(function (error) {

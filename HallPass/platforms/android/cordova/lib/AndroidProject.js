@@ -21,8 +21,11 @@ var fs = require('fs');
 var path = require('path');
 var properties_parser = require('properties-parser');
 var AndroidManifest = require('./AndroidManifest');
+<<<<<<< HEAD
 var AndroidStudio = require('./AndroidStudio');
 var pluginHandlers = require('./pluginHandlers');
+=======
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 
 var projectFileCache = {};
 
@@ -64,9 +67,12 @@ function AndroidProject(projectDir) {
     this.projectDir = projectDir;
     this.platformWww = path.join(this.projectDir, 'platform_www');
     this.www = path.join(this.projectDir, 'assets/www');
+<<<<<<< HEAD
     if(AndroidStudio.isAndroidStudioProject(projectDir) === true) {
       this.www = path.join(this.projectDir, 'app/src/main/assets/www');
     }
+=======
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 }
 
 AndroidProject.getProjectFile = function (projectDir) {
@@ -93,11 +99,15 @@ AndroidProject.purgeCache = function (projectDir) {
  * @return  {String}              The name of the package
  */
 AndroidProject.prototype.getPackageName = function() {
+<<<<<<< HEAD
     var manifestPath = path.join(this.projectDir, 'AndroidManifest.xml');
     if(AndroidStudio.isAndroidStudioProject(this.projectDir) === true) {
       manifestPath = path.join(this.projectDir, 'app/src/main/AndroidManifest.xml');
     }
     return new AndroidManifest(manifestPath).getPackageId();
+=======
+    return new AndroidManifest(path.join(this.projectDir, 'AndroidManifest.xml')).getPackageId();
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 };
 
 AndroidProject.prototype.getCustomSubprojectRelativeDir = function(plugin_id, src) {
@@ -189,6 +199,7 @@ AndroidProject.prototype._getPropertiesFile = function (filename) {
     return this._propertiesEditors[filename];
 };
 
+<<<<<<< HEAD
 AndroidProject.prototype.getInstaller = function (type) {
     return pluginHandlers.getInstaller(type);
 };
@@ -197,5 +208,7 @@ AndroidProject.prototype.getUninstaller = function (type) {
     return pluginHandlers.getUninstaller(type);
 };
 
+=======
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 
 module.exports = AndroidProject;

@@ -30,13 +30,20 @@ import android.content.IntentFilter;
 import android.telephony.TelephonyManager;
 import android.view.KeyEvent;
 
+<<<<<<< HEAD
 import java.lang.reflect.Field;
+=======
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 import java.util.HashMap;
 
 /**
  * This class exposes methods in Cordova that can be called from JavaScript.
  */
+<<<<<<< HEAD
 public class CoreAndroid extends CordovaPlugin {
+=======
+class CoreAndroid extends CordovaPlugin {
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 
     public static final String PLUGIN_NAME = "CoreAndroid";
     protected static final String TAG = "CordovaApp";
@@ -358,6 +365,7 @@ public class CoreAndroid extends CordovaPlugin {
             }
         }
     }
+<<<<<<< HEAD
 
       /*
      * This needs to be implemented if you wish to use the Camera Plugin or other plugins
@@ -387,4 +395,6 @@ public class CoreAndroid extends CordovaPlugin {
 
         return null;
     }
+=======
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 }

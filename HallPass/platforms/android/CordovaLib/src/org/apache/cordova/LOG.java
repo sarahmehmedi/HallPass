@@ -158,6 +158,7 @@ public class LOG {
      * Warning log message.
      *
      * @param tag
+<<<<<<< HEAD
      * @param e
      */
     public static void w(String tag, Throwable e) {
@@ -168,6 +169,8 @@ public class LOG {
      * Warning log message.
      *
      * @param tag
+=======
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
      * @param s
      * @param e
      */

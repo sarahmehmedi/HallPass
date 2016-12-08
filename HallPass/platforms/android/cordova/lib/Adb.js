@@ -56,13 +56,18 @@ Adb.devices = function (opts) {
 };
 
 Adb.install = function (target, packagePath, opts) {
+<<<<<<< HEAD
     events.emit('verbose', 'Installing apk ' + packagePath + ' on target ' + target + '...');
+=======
+    events.emit('verbose', 'Installing apk ' + packagePath + ' on ' + target + '...');
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     var args = ['-s', target, 'install'];
     if (opts && opts.replace) args.push('-r');
     return spawn('adb', args.concat(packagePath), {cwd: os.tmpdir()})
     .then(function(output) {
         // 'adb install' seems to always returns no error, even if installation fails
         // so we catching output to detect installation failure
+<<<<<<< HEAD
         if (output.match(/Failure/)) {
             if (output.match(/INSTALL_PARSE_FAILED_NO_CERTIFICATES/)) {
                 output += '\n\n' + 'Sign the build using \'-- --keystore\' or \'--buildConfig\'' +
@@ -74,16 +79,28 @@ Adb.install = function (target, packagePath, opts) {
 
             return Q.reject(new CordovaError('Failed to install apk to device: ' + output));
         }
+=======
+        if (output.match(/Failure/))
+            return Q.reject(new CordovaError('Failed to install apk to device: ' + output));
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     });
 };
 
 Adb.uninstall = function (target, packageId) {
+<<<<<<< HEAD
     events.emit('verbose', 'Uninstalling package ' + packageId + ' from target ' + target + '...');
+=======
+    events.emit('verbose', 'Uninstalling ' + packageId + ' from ' + target + '...');
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     return spawn('adb', ['-s', target, 'uninstall', packageId], {cwd: os.tmpdir()});
 };
 
 Adb.shell = function (target, shellCommand) {
+<<<<<<< HEAD
     events.emit('verbose', 'Running adb shell command "' + shellCommand + '" on target ' + target + '...');
+=======
+    events.emit('verbose', 'Running command "' + shellCommand + '" on ' + target + '...');
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     var args = ['-s', target, 'shell'];
     shellCommand = shellCommand.split(/\s+/);
     return spawn('adb', args.concat(shellCommand), {cwd: os.tmpdir()})
@@ -94,7 +111,11 @@ Adb.shell = function (target, shellCommand) {
 };
 
 Adb.start = function (target, activityName) {
+<<<<<<< HEAD
     events.emit('verbose', 'Starting application "' + activityName + '" on target ' + target + '...');
+=======
+    events.emit('verbose', 'Starting application "' + activityName + '" on ' + target + '...');
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     return Adb.shell(target, 'am start -W -a android.intent.action.MAIN -n' + activityName)
     .catch(function (output) {
         return Q.reject(new CordovaError('Failed to start application "' +

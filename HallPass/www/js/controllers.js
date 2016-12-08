@@ -186,8 +186,14 @@
 //         $state.go('login');
 //     };
 
+<<<<<<< HEAD
 // })
  
+=======
+.controller('ForumController', function ($scope, $state, Items, $cordovaOauth, $localStorage, $log, $location, $http, $ionicPopup, $firebaseObject, $firebaseAuth, Auth, FURL, Utils) {
+    var ref = firebase.database().ref();
+    $scope.authObj = $firebaseAuth();
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 
 .controller('MapController', function($scope,$ionicLoading, $compile){
      function initialize() {
@@ -249,6 +255,11 @@
         Auth.logout();
         $state.go('login');
     };
+<<<<<<< HEAD
+=======
+    $scope.items = Items.all();
+    
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 });
 
 //OLD CODE FOR MAP - REMOVE WHEN TURNING IN

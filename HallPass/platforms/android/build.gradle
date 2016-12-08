@@ -17,12 +17,21 @@
        under the License.
 */
 
+<<<<<<< HEAD
 apply plugin: 'com.android.application'
+=======
+// GENERATED FILE! DO NOT EDIT!
+
+apply plugin: 'android'
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 
 buildscript {
     repositories {
         mavenCentral()
+<<<<<<< HEAD
         jcenter()
+=======
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     }
 
     // Switch the Android Gradle plugin version requirement depending on the
@@ -30,6 +39,7 @@ buildscript {
     // http://tools.android.com/tech-docs/new-build-system/version-compatibility
     // and https://issues.apache.org/jira/browse/CB-8143
     dependencies {
+<<<<<<< HEAD
         classpath 'com.android.tools.build:gradle:2.2.0'
     }
 }
@@ -44,6 +54,19 @@ allprojects {
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.14.1'
+=======
+        classpath 'com.android.tools.build:gradle:1.5.0'
+    }
+   }
+
+// Allow plugins to declare Maven dependencies via build-extras.gradle.
+repositories {
+    mavenCentral()
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.8'
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 }
 
 // Configuration properties. Set these via environment variables, build-extras.gradle, or gradle.properties.
@@ -164,7 +187,11 @@ android {
     }
 
     defaultConfig {
+<<<<<<< HEAD
         versionCode cdvVersionCode ?: new BigInteger("" + privateHelpers.extractIntFromManifest("versionCode"))
+=======
+        versionCode cdvVersionCode ?: Integer.parseInt("" + privateHelpers.extractIntFromManifest("versionCode") + "0")
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
         applicationId privateHelpers.extractStringFromManifest("package")
 
         if (cdvMinSdkVersion != null) {
@@ -182,13 +209,21 @@ android {
     if (Boolean.valueOf(cdvBuildMultipleApks)) {
         productFlavors {
             armv7 {
+<<<<<<< HEAD
                 versionCode defaultConfig.versionCode*10 + 2
+=======
+                versionCode defaultConfig.versionCode + 2
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
                 ndk {
                     abiFilters "armeabi-v7a", ""
                 }
             }
             x86 {
+<<<<<<< HEAD
                 versionCode defaultConfig.versionCode*10 + 4
+=======
+                versionCode defaultConfig.versionCode + 4
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
                 ndk {
                     abiFilters "x86", ""
                 }
@@ -199,12 +234,16 @@ android {
                 }
             }
         }
+<<<<<<< HEAD
     }
     /*
 
     ELSE NOTHING! DON'T MESS WITH THE VERSION CODE IF YOU DON'T HAVE TO!
 
     else if (!cdvVersionCode) {
+=======
+    } else if (!cdvVersionCode) {
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
       def minSdkVersion = cdvMinSdkVersion ?: privateHelpers.extractIntFromManifest("minSdkVersion")
       // Vary versionCode by the two most common API levels:
       // 14 is ICS, which is the lowest API level for many apps.
@@ -215,7 +254,10 @@ android {
         defaultConfig.versionCode += 8
       }
     }
+<<<<<<< HEAD
     */
+=======
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_6
@@ -247,8 +289,13 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
     // SUB-PROJECT DEPENDENCIES START
+<<<<<<< HEAD
     debugCompile(project(path: "CordovaLib", configuration: "debug"))
     releaseCompile(project(path: "CordovaLib", configuration: "release"))
+=======
+    debugCompile project(path: "CordovaLib", configuration: "debug")
+    releaseCompile project(path: "CordovaLib", configuration: "release")
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     // SUB-PROJECT DEPENDENCIES END
 }
 

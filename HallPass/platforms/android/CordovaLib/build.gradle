@@ -24,12 +24,20 @@ buildscript {
     }
 
     dependencies {
+<<<<<<< HEAD
         classpath 'com.android.tools.build:gradle:2.1.0'
+=======
+        classpath 'com.android.tools.build:gradle:1.5.0'
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     }
 
 }
 
+<<<<<<< HEAD
 apply plugin: 'com.android.library'
+=======
+apply plugin: 'android-library'
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 
 ext {
     apply from: 'cordova.gradle'

@@ -26,6 +26,7 @@ var AndroidManifest = require('./AndroidManifest');
 var xmlHelpers = require('cordova-common').xmlHelpers;
 var CordovaError = require('cordova-common').CordovaError;
 var ConfigParser = require('cordova-common').ConfigParser;
+<<<<<<< HEAD
 var FileUpdater = require('cordova-common').FileUpdater;
 var PlatformJson = require('cordova-common').PlatformJson;
 var PlatformMunger = require('cordova-common').ConfigChanges.PlatformMunger;
@@ -41,11 +42,24 @@ module.exports.prepare = function (cordovaProject, options) {
 
     // Update own www dir with project's www assets and plugins' assets and js-files
     return Q.when(updateWww(cordovaProject, this.locations))
+=======
+
+module.exports.prepare = function (cordovaProject) {
+
+    var self = this;
+
+    this._config = updateConfigFilesFrom(cordovaProject.projectConfig,
+        this._munger, this.locations);
+
+    // Update own www dir with project's www assets and plugins' assets and js-files
+    return Q.when(updateWwwFrom(cordovaProject, this.locations))
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     .then(function () {
         // update project according to config.xml changes.
         return updateProjectAccordingTo(self._config, self.locations);
     })
     .then(function () {
+<<<<<<< HEAD
         updateIcons(cordovaProject, self.locations.res);
         updateSplashes(cordovaProject, self.locations.res);
     })
@@ -72,6 +86,13 @@ module.exports.clean = function (options) {
         cleanWww(projectRoot, self.locations);
         cleanIcons(projectRoot, projectConfig, self.locations.res);
         cleanSplashes(projectRoot, projectConfig, self.locations.res);
+=======
+        handleIcons(cordovaProject.projectConfig, self.root);
+        handleSplashes(cordovaProject.projectConfig, self.root);
+    })
+    .then(function () {
+        self.events.emit('verbose', 'updated project successfully');
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     });
 };
 
@@ -90,7 +111,11 @@ module.exports.clean = function (options) {
  *   configuration is already dumped to appropriate config.xml file.
  */
 function updateConfigFilesFrom(sourceConfig, configMunger, locations) {
+<<<<<<< HEAD
     events.emit('verbose', 'Generating platform-specific config.xml from defaults for android at ' + locations.configXml);
+=======
+    events.emit('verbose', 'Generating config.xml from defaults for platform "android"');
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 
     // First cleanup current config and merge project's one into own
     // Overwrite platform config.xml with defaults.xml.
@@ -100,7 +125,10 @@ function updateConfigFilesFrom(sourceConfig, configMunger, locations) {
     // in project (including project's config)
     configMunger.reapply_global_munge().save_all();
 
+<<<<<<< HEAD
     events.emit('verbose', 'Merging project\'s config.xml into platform-specific android config.xml');
+=======
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     // Merge changes from app's config.xml into platform's one
     var config = new ConfigParser(locations.configXml);
     xmlHelpers.mergeXml(sourceConfig.doc.getroot(),
@@ -111,6 +139,7 @@ function updateConfigFilesFrom(sourceConfig, configMunger, locations) {
 }
 
 /**
+<<<<<<< HEAD
  * Logs all file operations via the verbose event stream, indented.
  */
 function logFileOp(message) {
@@ -118,6 +147,8 @@ function logFileOp(message) {
 }
 
 /**
+=======
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
  * Updates platform 'www' directory by replacing it with contents of
  *   'platform_www' and app www. Also copies project's overrides' folder into
  *   the platform 'www' folder
@@ -126,15 +157,26 @@ function logFileOp(message) {
  * @param   {Object}  destinations      An object that contains destination
  *   paths for www files.
  */
+<<<<<<< HEAD
 function updateWww(cordovaProject, destinations) {
     var sourceDirs = [
         path.relative(cordovaProject.root, cordovaProject.locations.www),
         path.relative(cordovaProject.root, destinations.platformWww)
     ];
+=======
+function updateWwwFrom(cordovaProject, destinations) {
+    shell.rm('-rf', destinations.www);
+    shell.mkdir('-p', destinations.www);
+    // Copy source files from project's www directory
+    shell.cp('-rf', path.join(cordovaProject.locations.www, '*'), destinations.www);
+    // Override www sources by files in 'platform_www' directory
+    shell.cp('-rf', path.join(destinations.platformWww, '*'), destinations.www);
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 
     // If project contains 'merges' for our platform, use them as another overrides
     var merges_path = path.join(cordovaProject.root, 'merges', 'android');
     if (fs.existsSync(merges_path)) {
+<<<<<<< HEAD
         events.emit('verbose', 'Found "merges/android" folder. Copying its contents into the android project.');
         sourceDirs.push(path.join('merges', 'android'));
     }
@@ -156,6 +198,12 @@ function cleanWww(projectRoot, locations) {
     // No source paths are specified, so mergeAndUpdateDir() will clear the target directory.
     FileUpdater.mergeAndUpdateDir(
         [], targetDir, { rootDir: projectRoot, all: true }, logFileOp);
+=======
+        events.emit('verbose', 'Found "merges" for android platform. Copying over existing "www" files.');
+        var overrides = path.join(merges_path, '*');
+        shell.cp('-rf', overrides, destinations.www);
+    }
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 }
 
 /**
@@ -169,9 +217,15 @@ function updateProjectAccordingTo(platformConfig, locations) {
     // Update app name by editing res/values/strings.xml
     var name = platformConfig.name();
     var strings = xmlHelpers.parseElementtreeSync(locations.strings);
+<<<<<<< HEAD
     strings.find('string[@name="app_name"]').text = name.replace(/\'/g, '\\\'');
     fs.writeFileSync(locations.strings, strings.write({indent: 4}), 'utf-8');
     events.emit('verbose', 'Wrote out android application name "' + name + '" to ' + locations.strings);
+=======
+    strings.find('string[@name="app_name"]').text = name;
+    fs.writeFileSync(locations.strings, strings.write({indent: 4}), 'utf-8');
+    events.emit('verbose', 'Wrote out Android application name to "' + name + '"');
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 
     // Java packages cannot support dashes
     var pkg = (platformConfig.android_packageName() || platformConfig.packageName()).replace(/-/g, '_');
@@ -180,7 +234,11 @@ function updateProjectAccordingTo(platformConfig, locations) {
     var orig_pkg = manifest.getPackageId();
 
     manifest.getActivity()
+<<<<<<< HEAD
         .setOrientation(platformConfig.getPreference('orientation'))
+=======
+        .setOrientation(findOrientationValue(platformConfig))
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
         .setLaunchMode(findAndroidLaunchModePreference(platformConfig));
 
     manifest.setVersionName(platformConfig.version())
@@ -197,15 +255,25 @@ function updateProjectAccordingTo(platformConfig, locations) {
     });
 
     if (java_files.length === 0) {
+<<<<<<< HEAD
         throw new CordovaError('No Java files found that extend CordovaActivity.');
     } else if(java_files.length > 1) {
         events.emit('log', 'Multiple candidate Java files that extend CordovaActivity found. Guessing at the first one, ' + java_files[0]);
+=======
+        throw new CordovaError('No Java files found which extend CordovaActivity.');
+    } else if(java_files.length > 1) {
+        events.emit('log', 'Multiple candidate Java files (.java files which extend CordovaActivity) found. Guessing at the first one, ' + java_files[0]);
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     }
 
     var destFile = path.join(locations.root, 'src', pkg.replace(/\./g, '/'), path.basename(java_files[0]));
     shell.mkdir('-p', path.dirname(destFile));
     shell.sed(/package [\w\.]*;/, 'package ' + pkg + ';', java_files[0]).to(destFile);
+<<<<<<< HEAD
     events.emit('verbose', 'Wrote out Android package name "' + pkg + '" to ' + destFile);
+=======
+    events.emit('verbose', 'Wrote out Android package name to "' + pkg + '"');
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 
     if (orig_pkg !== pkg) {
         // If package was name changed we need to remove old java with main activity
@@ -239,6 +307,7 @@ function default_versionCode(version) {
     if (+nums[2]) {
         versionCode += +nums[2];
     }
+<<<<<<< HEAD
 
     events.emit('verbose', 'android-versionCode not found in config.xml. Generating a code based on version in config.xml (' + version + '): ' + versionCode);
     return versionCode;
@@ -302,6 +371,57 @@ function cleanSplashes(projectRoot, projectConfig, platformResourcesDir) {
 
 function updateIcons(cordovaProject, platformResourcesDir) {
     var icons = cordovaProject.projectConfig.getIcons('android');
+=======
+    return versionCode;
+}
+
+function copyImage(src, resourcesDir, density, name) {
+    var destFolder = path.join(resourcesDir, (density ? 'drawable-': 'drawable') + density);
+    var isNinePatch = !!/\.9\.png$/.exec(src);
+    var ninePatchName = name.replace(/\.png$/, '.9.png');
+
+    // default template does not have default asset for this density
+    if (!fs.existsSync(destFolder)) {
+        fs.mkdirSync(destFolder);
+    }
+
+    var destFilePath = path.join(destFolder, isNinePatch ? ninePatchName : name);
+    events.emit('verbose', 'copying image from ' + src + ' to ' + destFilePath);
+    shell.cp('-f', src, destFilePath);
+}
+
+function handleSplashes(projectConfig, platformRoot) {
+    var resources = projectConfig.getSplashScreens('android');
+    // if there are "splash" elements in config.xml
+    if (resources.length > 0) {
+        deleteDefaultResourceAt(platformRoot, 'screen.png');
+        events.emit('verbose', 'splash screens: ' + JSON.stringify(resources));
+
+        // The source paths for icons and splashes are relative to
+        // project's config.xml location, so we use it as base path.
+        var projectRoot = path.dirname(projectConfig.path);
+        var destination = path.join(platformRoot, 'res');
+
+        var hadMdpi = false;
+        resources.forEach(function (resource) {
+            if (!resource.density) {
+                return;
+            }
+            if (resource.density == 'mdpi') {
+                hadMdpi = true;
+            }
+            copyImage(path.join(projectRoot, resource.src), destination, resource.density, 'screen.png');
+        });
+        // There's no "default" drawable, so assume default == mdpi.
+        if (!hadMdpi && resources.defaultResource) {
+            copyImage(path.join(projectRoot, resources.defaultResource.src), destination, 'mdpi', 'screen.png');
+        }
+    }
+}
+
+function handleIcons(projectConfig, platformRoot) {
+    var icons = projectConfig.getIcons('android');
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 
     // if there are icon elements in config.xml
     if (icons.length === 0) {
@@ -309,7 +429,11 @@ function updateIcons(cordovaProject, platformResourcesDir) {
         return;
     }
 
+<<<<<<< HEAD
     var resourceMap = mapImageResources(cordovaProject.root, platformResourcesDir, 'mipmap', 'icon.png');
+=======
+    deleteDefaultResourceAt(platformRoot, 'icon.png');
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 
     var android_icons = {};
     var default_icon;
@@ -347,7 +471,11 @@ function updateIcons(cordovaProject, platformResourcesDir) {
         }
         if (!size && !icon.density) {
             if (default_icon) {
+<<<<<<< HEAD
                 events.emit('verbose', 'Found extra default icon: ' + icon.src + ' (ignoring in favor of ' + default_icon.src + ')');
+=======
+                events.emit('verbose', 'more than one default icon: ' + JSON.stringify(icon));
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
             } else {
                 default_icon = icon;
             }
@@ -358,6 +486,7 @@ function updateIcons(cordovaProject, platformResourcesDir) {
 
     // The source paths for icons and splashes are relative to
     // project's config.xml location, so we use it as base path.
+<<<<<<< HEAD
     for (var density in android_icons) {
         var targetPath = getImageResourcePath(
             platformResourcesDir, 'mipmap', density, 'icon.png', path.basename(android_icons[density].src));
@@ -399,6 +528,27 @@ function mapImageResources(rootDir, subDir, type, resourceName) {
         pathMap[imagePath] = null;
     });
     return pathMap;
+=======
+    var projectRoot = path.dirname(projectConfig.path);
+    var destination = path.join(platformRoot, 'res');
+    for (var density in android_icons) {
+        copyImage(path.join(projectRoot, android_icons[density].src), destination, density, 'icon.png');
+    }
+    // There's no "default" drawable, so assume default == mdpi.
+    if (default_icon && !android_icons.mdpi) {
+        copyImage(path.join(projectRoot, default_icon.src), destination, 'mdpi', 'icon.png');
+    }
+}
+
+// remove the default resource name from all drawable folders
+function deleteDefaultResourceAt(baseDir, resourceName) {
+    shell.ls(path.join(baseDir, 'res/drawable-*'))
+    .forEach(function (drawableFolder) {
+        var imagePath = path.join(drawableFolder, resourceName);
+        shell.rm('-f', [imagePath, imagePath.replace(/\.png$/, '.9.png')]);
+        events.emit('verbose', 'Deleted ' + imagePath);
+    });
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 }
 
 /**
@@ -429,3 +579,39 @@ function findAndroidLaunchModePreference(platformConfig) {
 
     return launchMode;
 }
+<<<<<<< HEAD
+=======
+
+/**
+ * Queries ConfigParser object for the orientation <preference> value. Warns if
+ *   global preference value is not supported by platform.
+ *
+ * @param  {Object} platformConfig    ConfigParser object
+ *
+ * @return {String}           Global/platform-specific orientation in lower-case
+ *   (or empty string if both are undefined).
+ */
+function findOrientationValue(platformConfig) {
+
+    var ORIENTATION_DEFAULT = 'default';
+
+    var orientation = platformConfig.getPreference('orientation');
+    if (!orientation) {
+        return ORIENTATION_DEFAULT;
+    }
+
+    var GLOBAL_ORIENTATIONS = ['default', 'portrait','landscape'];
+    function isSupported(orientation) {
+        return GLOBAL_ORIENTATIONS.indexOf(orientation.toLowerCase()) >= 0;
+    }
+
+    // Check if the given global orientation is supported
+    if (orientation && isSupported(orientation)) {
+        return orientation;
+    }
+
+    events.emit('warn', 'Unsupported global orientation: ' + orientation +
+        '. Defaulting to value: ' + ORIENTATION_DEFAULT);
+    return ORIENTATION_DEFAULT;
+}
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd

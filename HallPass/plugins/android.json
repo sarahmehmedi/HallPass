@@ -24,6 +24,7 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.ionicframework.hallpass273527"
+<<<<<<< HEAD
         },
         "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.ionicframework.hallpass273527"
@@ -34,4 +35,9 @@
             "PACKAGE_NAME": "com.ionicframework.hallpass273527"
         }
     }
+=======
+        }
+    },
+    "dependent_plugins": {}
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 }

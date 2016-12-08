@@ -1,5 +1,9 @@
 // Platform: android
+<<<<<<< HEAD
 // 53ea1913735222d326e65326e03391405df3cd4e
+=======
+// c517ca811b4948b630e0b74dbae6c9637939da24
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 /*
  Licensed to the Apache Software Foundation (ASF) under one
  or more contributor license agreements.  See the NOTICE file
@@ -19,7 +23,11 @@
  under the License.
 */
 ;(function() {
+<<<<<<< HEAD
 var PLATFORM_VERSION_BUILD_LABEL = '6.0.0';
+=======
+var PLATFORM_VERSION_BUILD_LABEL = '5.1.1';
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 // file: src/scripts/require.js
 
 /*jshint -W079 */
@@ -330,7 +338,11 @@ module.exports = cordova;
 
 });
 
+<<<<<<< HEAD
 // file: /Users/jbowser/cordova/cordova-android/cordova-js-src/android/nativeapiprovider.js
+=======
+// file: /Users/steveng/repo/cordova/cordova-android/cordova-js-src/android/nativeapiprovider.js
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 define("cordova/android/nativeapiprovider", function(require, exports, module) {
 
 /**
@@ -353,7 +365,11 @@ module.exports = {
 
 });
 
+<<<<<<< HEAD
 // file: /Users/jbowser/cordova/cordova-android/cordova-js-src/android/promptbasednativeapi.js
+=======
+// file: /Users/steveng/repo/cordova/cordova-android/cordova-js-src/android/promptbasednativeapi.js
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 define("cordova/android/promptbasednativeapi", function(require, exports, module) {
 
 /**
@@ -742,6 +758,7 @@ var Channel = function(type, sticky) {
         }
     };
 
+<<<<<<< HEAD
 function checkSubscriptionArgument(argument) {
     if (typeof argument !== "function" && typeof argument.handleEvent !== "function") {
         throw new Error(
@@ -749,6 +766,10 @@ function checkSubscriptionArgument(argument) {
                 "implementing the handleEvent interface."
         );
     }
+=======
+function forceFunction(f) {
+    if (typeof f != 'function') throw "Function required as first argument!";
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 }
 
 /**
@@ -758,6 +779,7 @@ function checkSubscriptionArgument(argument) {
  * and a guid that can be used to stop subscribing to the channel.
  * Returns the guid.
  */
+<<<<<<< HEAD
 Channel.prototype.subscribe = function(eventListenerOrFunction, eventListener) {
     checkSubscriptionArgument(eventListenerOrFunction);
     var handleEvent, guid;
@@ -791,6 +813,30 @@ Channel.prototype.subscribe = function(eventListenerOrFunction, eventListener) {
     // Don't add the same handler more than once.
     if (!this.handlers[guid]) {
         this.handlers[guid] = handleEvent;
+=======
+Channel.prototype.subscribe = function(f, c) {
+    // need a function to call
+    forceFunction(f);
+    if (this.state == 2) {
+        f.apply(c || this, this.fireArgs);
+        return;
+    }
+
+    var func = f,
+        guid = f.observer_guid;
+    if (typeof c == "object") { func = utils.close(c, f); }
+
+    if (!guid) {
+        // first time any channel has seen this subscriber
+        guid = '' + nextGuid++;
+    }
+    func.observer_guid = guid;
+    f.observer_guid = guid;
+
+    // Don't add the same handler more than once.
+    if (!this.handlers[guid]) {
+        this.handlers[guid] = func;
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
         this.numHandlers++;
         if (this.numHandlers == 1) {
             this.onHasSubscribersChange && this.onHasSubscribersChange();
@@ -801,6 +847,7 @@ Channel.prototype.subscribe = function(eventListenerOrFunction, eventListener) {
 /**
  * Unsubscribes the function with the given guid from the channel.
  */
+<<<<<<< HEAD
 Channel.prototype.unsubscribe = function(eventListenerOrFunction) {
     checkSubscriptionArgument(eventListenerOrFunction);
     var handleEvent, guid, handler;
@@ -815,6 +862,14 @@ Channel.prototype.unsubscribe = function(eventListenerOrFunction) {
 
     guid = handleEvent.observer_guid;
     handler = this.handlers[guid];
+=======
+Channel.prototype.unsubscribe = function(f) {
+    // need a function to unsubscribe
+    forceFunction(f);
+
+    var guid = f.observer_guid,
+        handler = this.handlers[guid];
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     if (handler) {
         delete this.handlers[guid];
         this.numHandlers--;
@@ -886,7 +941,11 @@ module.exports = channel;
 
 });
 
+<<<<<<< HEAD
 // file: /Users/jbowser/cordova/cordova-android/cordova-js-src/exec.js
+=======
+// file: /Users/steveng/repo/cordova/cordova-android/cordova-js-src/exec.js
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 define("cordova/exec", function(require, exports, module) {
 
 /**
@@ -921,11 +980,18 @@ var cordova = require('cordova'),
         // For the ONLINE_EVENT to be viable, it would need to intercept all event
         // listeners (both through addEventListener and window.ononline) as well
         // as set the navigator property itself.
+<<<<<<< HEAD
         ONLINE_EVENT: 2,
         EVAL_BRIDGE: 3
     },
     jsToNativeBridgeMode,  // Set lazily.
     nativeToJsBridgeMode = nativeToJsModes.EVAL_BRIDGE,
+=======
+        ONLINE_EVENT: 2
+    },
+    jsToNativeBridgeMode,  // Set lazily.
+    nativeToJsBridgeMode = nativeToJsModes.ONLINE_EVENT,
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     pollEnabled = false,
     bridgeSecret = -1;
 
@@ -948,9 +1014,12 @@ function androidExec(success, fail, service, action, args) {
         androidExec.setJsToNativeBridgeMode(jsToNativeModes.JS_OBJECT);
     }
 
+<<<<<<< HEAD
     // If args is not provided, default to an empty array
     args = args || [];
 
+=======
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     // Process any ArrayBuffers in the args into a string.
     for (var i = 0; i < args.length; i++) {
         if (utils.typeName(args[i]) == 'ArrayBuffer') {
@@ -960,6 +1029,10 @@ function androidExec(success, fail, service, action, args) {
 
     var callbackId = service + cordova.callbackId++,
         argsJson = JSON.stringify(args);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     if (success || fail) {
         cordova.callbacks[callbackId] = {success:success, fail:fail};
     }
@@ -979,6 +1052,7 @@ function androidExec(success, fail, service, action, args) {
 }
 
 androidExec.init = function() {
+<<<<<<< HEAD
     //CB-11828
     //This failsafe checks the version of Android and if it's Jellybean, it switches it to
     //using the Online Event bridge for communicating from Native to JS
@@ -990,6 +1064,8 @@ androidExec.init = function() {
       nativeToJsBridgeMode = nativeToJsModes.ONLINE_EVENT;
     }
 
+=======
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     bridgeSecret = +prompt('', 'gap_init:' + nativeToJsBridgeMode);
     channel.onNativeReady.fire();
 };
@@ -1649,7 +1725,11 @@ exports.reset();
 
 });
 
+<<<<<<< HEAD
 // file: /Users/jbowser/cordova/cordova-android/cordova-js-src/platform.js
+=======
+// file: /Users/steveng/repo/cordova/cordova-android/cordova-js-src/platform.js
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 define("cordova/platform", function(require, exports, module) {
 
 // The last resume event that was received that had the result of a plugin call.
@@ -1759,7 +1839,11 @@ function onMessageFromNative(msg) {
 
 });
 
+<<<<<<< HEAD
 // file: /Users/jbowser/cordova/cordova-android/cordova-js-src/plugin/android/app.js
+=======
+// file: /Users/steveng/repo/cordova/cordova-android/cordova-js-src/plugin/android/app.js
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 define("cordova/plugin/android/app", function(require, exports, module) {
 
 var exec = require('cordova/exec');
@@ -2121,10 +2205,14 @@ utils.clone = function(obj) {
 
     retVal = {};
     for(i in obj){
+<<<<<<< HEAD
         // https://issues.apache.org/jira/browse/CB-11522 'unknown' type may be returned in
         // custom protocol activation case on Windows Phone 8.1 causing "No such interface supported" exception
         // on cloning.
         if((!(i in retVal) || retVal[i] != obj[i]) && typeof obj[i] != 'undefined' && typeof obj[i] != 'unknown') {
+=======
+        if(!(i in retVal) || retVal[i] != obj[i]) {
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
             retVal[i] = utils.clone(obj[i]);
         }
     }

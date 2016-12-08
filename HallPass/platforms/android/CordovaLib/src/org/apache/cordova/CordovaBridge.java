@@ -23,6 +23,11 @@ import java.security.SecureRandom;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+<<<<<<< HEAD
+=======
+import android.util.Log;
+
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
 /**
  * Contains APIs that the JS can call. All functions in here should also have
  * an equivalent entry in CordovaChromeClient.java, and be added to
@@ -85,15 +90,25 @@ public class CordovaBridge {
     private boolean verifySecret(String action, int bridgeSecret) throws IllegalAccessException {
         if (!jsMessageQueue.isBridgeEnabled()) {
             if (bridgeSecret == -1) {
+<<<<<<< HEAD
                 LOG.d(LOG_TAG, action + " call made before bridge was enabled.");
             } else {
                 LOG.d(LOG_TAG, "Ignoring " + action + " from previous page load.");
+=======
+                Log.d(LOG_TAG, action + " call made before bridge was enabled.");
+            } else {
+                Log.d(LOG_TAG, "Ignoring " + action + " from previous page load.");
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
             }
             return false;
         }
         // Bridge secret wrong and bridge not due to it being from the previous page.
         if (expectedBridgeSecret < 0 || bridgeSecret != expectedBridgeSecret) {
+<<<<<<< HEAD
             LOG.e(LOG_TAG, "Bridge access attempt with wrong secret token, possibly from malicious code. Disabling exec() bridge!");
+=======
+            Log.e(LOG_TAG, "Bridge access attempt with wrong secret token, possibly from malicious code. Disabling exec() bridge!");
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
             clearBridgeSecret();
             throw new IllegalAccessException();
         }
@@ -118,7 +133,11 @@ public class CordovaBridge {
 
     public void reset() {
         jsMessageQueue.reset();
+<<<<<<< HEAD
         clearBridgeSecret();
+=======
+        clearBridgeSecret();        
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
     }
 
     public String promptOnJsPrompt(String origin, String message, String defaultValue) {
@@ -139,7 +158,11 @@ public class CordovaBridge {
             }
             return "";
         }
+<<<<<<< HEAD
         // Sets the native->JS bridge mode.
+=======
+        // Sets the native->JS bridge mode. 
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
         else if (defaultValue != null && defaultValue.startsWith("gap_bridge_mode:")) {
             try {
                 int bridgeSecret = Integer.parseInt(defaultValue.substring(16));
@@ -151,7 +174,11 @@ public class CordovaBridge {
             }
             return "";
         }
+<<<<<<< HEAD
         // Polling for JavaScript messages
+=======
+        // Polling for JavaScript messages 
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
         else if (defaultValue != null && defaultValue.startsWith("gap_poll:")) {
             int bridgeSecret = Integer.parseInt(defaultValue.substring(9));
             try {
@@ -173,7 +200,11 @@ public class CordovaBridge {
                 int secret = generateBridgeSecret();
                 return ""+secret;
             } else {
+<<<<<<< HEAD
                 LOG.e(LOG_TAG, "gap_init called from restricted origin: " + origin);
+=======
+                Log.e(LOG_TAG, "gap_init called from restricted origin: " + origin);
+>>>>>>> 3446753713ac403e759461b4346338f1bff120fd
             }
             return "";
         }
