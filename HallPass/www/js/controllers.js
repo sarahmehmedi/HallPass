@@ -77,7 +77,7 @@
         }
     };
 })
-
+//remember to add Auth, etc into here so logout works
 .controller('ForumCtrl', function($scope, Forums, $ionicModal){
   
   //test data

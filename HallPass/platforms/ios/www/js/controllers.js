@@ -81,9 +81,9 @@
 .controller('ForumCtrl', function($scope, Forums, $ionicModal){
   
   //test data
-  Forums.add(0, "COMP 322", 'meeting at cuneo', '12-23');
-  Forums.add(1, 'COMP 322', 'meeting at Ic', '123');
-  Forums.add(2, 'COMP 322', 'meeting at Ic', '123333');
+  Forums.add(0, "COMP 322", 'Crown Center rm 201, 4pm', '12/2/2016, 2:00am');
+  Forums.add(1, 'COMP 374', 'IC rm 212 at 3', '12/1/2016, 6:30pm');
+  Forums.add(2, 'THEO 120', 'Meeting at Cuneo 123', '11/1/2016, 2:00am');
 
 
   $scope.forums = Forums.all();
@@ -100,8 +100,6 @@
 
     $scope.addPosts = function(classname, location, date){
       var date = new Date();
-//      $scope.FromDate = date.getMonth() + '/' + date.getDate() + "/" + date.getFullYear() + " at " + (""+date.getDate()).slice(-2);
-     // date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
       var id = 5;
       console.log(classname + location + date);
       Forums.add(id++, classname, location, date);
