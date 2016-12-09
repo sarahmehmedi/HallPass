@@ -112,7 +112,7 @@
         }
     };
 })
-//remember to add Auth, etc into here so logout works
+
 .controller('ForumCtrl', function ($scope, Forums, $ionicModal, Auth, $state) {
 
     //test data
@@ -146,7 +146,6 @@
         $state.go('login');
     };
 })
-
 
 // .controller('AddPostCtrl',['$scope', '$state','SessionData', '$firebase', function($scope, $state, SessionData, $firebase){
 //   $scope.showUserHome = function(){
@@ -250,6 +249,8 @@
 })
 
 .controller('MapController', function ($scope, $ionicLoading, $compile, Auth, $state) {
+    google.maps.event.addDomListener(window, 'load', initialize);
+
     function initialize() {
         var myLatlng = new google.maps.LatLng(41.999005, -87.657135);
 
@@ -262,7 +263,7 @@
             mapOptions);
         //TODO 
         //Marker + infowindow + angularjs compiled ng-click
-        var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
+        var contentString = "<div><a ng-click='clickTest()'>COMP 322: Cuneo 123 at 2PM</a></div>";
         var compiled = $compile(contentString)($scope);
 
         var infowindow = new google.maps.InfoWindow({
@@ -275,13 +276,21 @@
             title: 'Current Location'
         });
 
+        var marker2 = new google.maps.Marker({
+            position: new google.maps.LatLng(42.000278, -87.656323),
+            map: map,
+            title: 'test'
+        })
+
         google.maps.event.addListener(marker, 'click', function () {
             infowindow.open(map, marker);
         });
 
+        google.maps.event.addListener(marker2, 'click', function () {
+            infowindow.open(map, marker2);
+        });
         $scope.map = map;
     }
-    google.maps.event.addDomListener(window, 'load', initialize);
 
     $scope.centerOnMe = function () {
         if (!$scope.map) {
