@@ -1,26 +1,7 @@
 ﻿angular.module('HallPass.controllers', [])
 
-.controller('SettingsController', function ($scope, $rootScope, $state, $firebaseArray, $cordovaOauth, $localStorage, $location, $http, $ionicPopup, $firebaseAuth, $firebaseObject, $log, Auth, FURL, Utils) {
-   // var ref = firebase.UserInfo;
-   
-    //$scope.userProfile = firebase.UserInfo;
-    /*
-    $scope.userData = {
-          email: ref.email,
-          userName: user.email,
-          profilePic: "",
-          registered_in: Date()
-       
-    };*/
-    
-    var auth = $firebaseAuth();
-    var firebaseUser = auth.$getAuth();
-    $scope.userEmail = firebaseUser.email;
-    $scope.userPic = firebaseUser.profilePic;
-    $scope.userName = firebaseUser.userName;
-    console.log("User: " + firebaseUser.email);
-
-  
+.controller('SettingsController', function ($scope, $state, $firebaseArray,  $http, $ionicPopup, $firebaseAuth, $firebaseObject, $log, Auth, FURL, Utils) {
+         
     $scope.updateUser = function(user)
     {
         if (angular.isDefined(user)) {
@@ -132,7 +113,7 @@
     };
 })
 //remember to add Auth, etc into here so logout works
-.controller('ForumCtrl', function ($scope, Forums, $ionicModal) {
+.controller('ForumCtrl', function ($scope, Forums, $ionicModal, Auth, $state) {
 
     //test data
     Forums.add(0, "COMP 322", 'Crown Center rm 201, 4pm', '12/2/2016, 2:00am');
@@ -243,7 +224,7 @@
 // })
 
 
-.controller('MapController', function ($scope, $ionicLoading, $compile) {
+.controller('MapController', function ($scope, $ionicLoading, $compile, Auth, $state) {
     function initialize() {
         var myLatlng = new google.maps.LatLng(41.999005, -87.657135);
 
