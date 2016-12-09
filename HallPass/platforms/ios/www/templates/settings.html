@@ -5,6 +5,49 @@
     </ion-nav-buttons>
 
     <ion-content class="padding">
-        This will be the settings
-    </ion-content>
+        <div class="list">
+            <div class="item images-parent">
+                <img src="../img/ben.png" class="center-image" style="border-radius: 50%">
+                <div class="row">
+                    <div class="col text-right">
+                        <button class="button">
+                            <i class="icon ion-compose"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!--TO DO: HOOK UP CHANGE PROFILE PIC BUTTON-->
+            
+
+            <div class="list">
+                <p>Change Email Address:</p>
+                <div class="item item-input-inset">
+                    <label class="item-input-wrapper">
+                        <input type="text" ng-model="user.email" placeholder="Email" ng-minlength="6" ng-maxlength="30" required>
+                    </label>
+                    <button class="button button-small" ng-click=updateUser(user)>
+                        Submit
+                    </button>
+                </div>
+
+                <p>Change Password: </p>
+                <div class="item item-input-inset">
+                    <label class="item-input-wrapper">
+                        <input type="password" ng-model="user.password" placeholder="Password" ng-minlength="6" ng-maxlength="30" required>
+                    </label>
+                    <button class="button button-small" ng-click=updatePass(user)>
+                        Submit
+                    </button>
+                </div>
+
+            </div>
+
+
+
+
+            </div>
+
+
+
+</ion-content>
 </ion-view>

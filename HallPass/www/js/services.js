@@ -61,14 +61,14 @@
 
         resetpassword: function (email) {
             return auth.$sendPasswordResetEmail(
-				  email
-				).then(function () {
-				    Utils.alertshow("Success!", "Your password has been sent to your email.");
-				    console.log("Password reset email sent successfully!");
-				}).catch(function (error) {
-				    Utils.errMessage(error);
-				    console.error("Error: ", error.message);
-				});
+          email
+        ).then(function () {
+            Utils.alertshow("Success!", "Your password has been sent to your email.");
+            console.log("Password reset email sent successfully!");
+        }).catch(function (error) {
+            Utils.errMessage(error);
+            console.error("Error: ", error.message);
+        });
         },
         changePassword: function (user) {
             return auth.$changePassword({ email: user.email, oldPassword: user.oldPass, newPassword: user.newPass });
@@ -140,6 +140,70 @@
     return Utils;
 })
 
+//source: https://github.com/akash-techmark/Capture-Camera-Gallery-Store-Email-Base64-Images-with-Ionic
+.factory('FileService', function() {
+  var images;
+  var IMAGE_STORAGE_KEY = 'dav-images';
+ 
+  function getImages() {
+    var img = window.localStorage.getItem(IMAGE_STORAGE_KEY);
+    if (img) {
+      images = JSON.parse(img);
+    } else {
+      images = [];
+    }
+    return images;
+  };
+ 
+  function addImage(img) {
+    images.push(img);
+    window.localStorage.setItem(IMAGE_STORAGE_KEY, JSON.stringify(images));
+  };
+ 
+  return {
+    storeImage: addImage,
+    images: getImages
+  }
+})
+
+//source: https://github.com/akash-techmark/Capture-Camera-Gallery-Store-Email-Base64-Images-with-Ionic
+.factory('ImageService', function($cordovaCamera, FileService, $q, $cordovaFile) {
+    
+  function optionsForType(type) {
+    var source;
+    switch (type) {
+      case 0:
+        source = Camera.PictureSourceType.CAMERA;
+        break;
+      case 1:
+        source = Camera.PictureSourceType.PHOTOLIBRARY;
+        break;
+    }
+    return {
+    quality: 90,
+      destinationType: Camera.DestinationType.DATA_URL,
+      sourceType: source,
+      allowEdit: false,
+      encodingType: Camera.EncodingType.JPEG,
+      popoverOptions: CameraPopoverOptions,
+      saveToPhotoAlbum: false,
+    correctOrientation:true
+    };
+  }
+ 
+  function saveMedia(type) {
+    return $q(function(resolve, reject) {
+      var options = optionsForType(type);
+ 
+      $cordovaCamera.getPicture(options).then(function(imageBase64) {   
+      FileService.storeImage(imageBase64);    
+    });
+    })
+  }
+  return {
+    handleMediaDialog: saveMedia
+  }
+})
 
 .factory('Forums', function (FURL, $firebaseArray, $firebaseAuth, Auth, Utils) {
     // Might use a resource here that returns a JSON array
@@ -176,10 +240,3 @@
         }
     };
 });
-
-
-
-
-
-
-

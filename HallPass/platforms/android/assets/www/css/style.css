@@ -18,3 +18,12 @@
       max-width: 200px !important;
       max-height: 200px !important;
     }
+
+  .floated_img{
+    height: 200px;
+    width: 75%;
+}
+  .floated_img img{
+    width : 100%;
+    height: auto;
+  }

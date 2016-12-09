@@ -4,7 +4,27 @@
         <button class="button icon-left ion-log-out button-stable" ng-click="logOut()">Logout</button>
     </ion-nav-buttons>
 
-    <ion-content class="padding">
-        This will be the notes
+    <ion-content class="has-header padding">
+	    <button class="button button-full button-positive" ng-click="addMedia()">
+	      Add Notes
+	    </button>
+	    <br><br>
+	    <a href="img/"
+	    <ion-scroll direction="x" style="height:200px; min-height: 200px; overflow: scroll; white-space: nowrap;">
+	      <img ng-repeat="image in images" ng-src="data:image/jpeg;base64,{{image}}" style="height:200px; padding: 5px 5px 5px 5px;"/>
+	    </ion-scroll>   
+
+<!-- 		notes to show for now since scroll having problems accessing camera -->
+		<div class="floated_img">
+		    <img src="img/notes1.jpeg" alt="Some image">
+		</div>
+		<br><br>
+		<div class="floated_img">
+		    <img src="img/notes2.jpg" alt="Another image">
+		</div> 
+		<br>
+				<div class="floated_img">
+		    <img src="img/notes3.jpg" alt="Another image">
+		</div>
     </ion-content>
 </ion-view>

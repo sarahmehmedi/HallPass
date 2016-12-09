@@ -86,7 +86,8 @@ angular.module('HallPass', ['ionic', 'HallPass.services', 'HallPass.controllers'
         url: 'main/notes',
         views: {
             'notes-tab': {
-                templateUrl: 'templates/notes.html'
+                templateUrl: 'templates/notes.html',
+                controller: 'ImageController'
             }
         }
     })

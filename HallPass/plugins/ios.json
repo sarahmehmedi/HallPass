@@ -27,6 +27,14 @@
         },
         "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.ionicframework.hallpass273527"
+        },
+        "cordova-plugin-camera": {
+            "CAMERA_USAGE_DESCRIPTION": " ",
+            "PHOTOLIBRARY_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "com.ionicframework.hallpass273527"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.ionicframework.hallpass273527"
         }
     },
     "dependent_plugins": {
