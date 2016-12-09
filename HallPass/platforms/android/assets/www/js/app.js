@@ -105,9 +105,10 @@ angular.module('HallPass', ['ionic', 'HallPass.services', 'HallPass.controllers'
         url: 'main/settings',
         views: {
             'settings-tab': {
-                templateUrl: 'templates/settings.html'
+                templateUrl: 'templates/settings.html',
+                controller: 'SettingsController'
             }
-        }
+        },
     });
 
     $urlRouterProvider.otherwise('/login');

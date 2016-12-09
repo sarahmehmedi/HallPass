@@ -1,24 +1,77 @@
 ﻿angular.module('HallPass.controllers', [])
 
+.controller('SettingsController', function ($scope, $rootScope, $state, $firebaseArray, $cordovaOauth, $localStorage, $location, $http, $ionicPopup, $firebaseAuth, $firebaseObject, $log, Auth, FURL, Utils) {
+   // var ref = firebase.UserInfo;
+   
+    //$scope.userProfile = firebase.UserInfo;
+    /*
+    $scope.userData = {
+          email: ref.email,
+          userName: user.email,
+          profilePic: "",
+          registered_in: Date()
+       
+    };*/
+    
+    var auth = $firebaseAuth();
+    var firebaseUser = auth.$getAuth();
+    $scope.userEmail = firebaseUser.email;
+    $scope.userPic = firebaseUser.profilePic;
+    $scope.userName = firebaseUser.userName;
+    console.log("User: " + firebaseUser.email);
 
-.controller('LoginController', function ($scope, $state, $cordovaOauth, $localStorage, $location, $http, $ionicPopup, $firebaseAuth, $firebaseObject, $log, Auth, FURL, Utils) {
+  
+    $scope.updateUser = function(user)
+    {
+        if (angular.isDefined(user)) {
+            Auth.updateUserEmail(user).then(function () {
+                console.log("Email changed successfully!");
+            }).catch(function (error) {
+                console.error("Error: ", error);
+            });
+        }
+    }
+
+    $scope.updatePass = function(user)
+    {
+        if (angular.isDefined(user)) {
+            Auth.updateUserPassword(user).then(function () {
+                console.log("Password changed successfully!");
+            }).catch(function (error) {
+                console.error("Error: ", error);
+            });
+        }
+
+    }
+
+    $scope.logOut = function () {
+        Auth.logout();
+        $state.go('login');
+    };
+})
+
+.controller('LoginController', function ($scope, $state, $cordovaOauth, $localStorage, $location, $http, $ionicPopup, $firebaseAuth, $firebaseObject, $state, $log, Auth, FURL, Utils) {
 
     var auth = $firebaseAuth();
     var ref = firebase.database().ref();
     var userkey = "";
 
 
+
     $scope.signIn = function (user) {
         // $log.log("Sent");
+    
+
         if (angular.isDefined(user)) {
             Utils.show();
             Auth.login(user)
               .then(function (authData) {
+                
 
                   // $log.log("User ID:" + authData);
                   Utils.hide();
                   $state.go('main.forum');
-                 // $scope.setCurrentUsername("test");
+                  // $scope.setCurrentUsername("test");
                   //var username = $scope.setCurrentUsername(data.username);
                   //$log.log("Starter page","Home");
 
@@ -58,6 +111,7 @@
               }).catch(function (error) {
                   $log.log("Error: " + error);
               });
+
         }
     };
 
@@ -78,32 +132,32 @@
     };
 })
 //remember to add Auth, etc into here so logout works
-.controller('ForumCtrl', function($scope, Forums, $ionicModal){
-  
-  //test data
-  Forums.add(0, "COMP 322", 'Crown Center rm 201, 4pm', '12/2/2016, 2:00am');
-  Forums.add(1, 'COMP 374', 'IC rm 212 at 3', '12/1/2016, 6:30pm');
-  Forums.add(2, 'THEO 120', 'Meeting at Cuneo 123', '11/1/2016, 2:00am');
+.controller('ForumCtrl', function ($scope, Forums, $ionicModal) {
+
+    //test data
+    Forums.add(0, "COMP 322", 'Crown Center rm 201, 4pm', '12/2/2016, 2:00am');
+    Forums.add(1, 'COMP 374', 'IC rm 212 at 3', '12/1/2016, 6:30pm');
+    Forums.add(2, 'THEO 120', 'Meeting at Cuneo 123', '11/1/2016, 2:00am');
 
 
-  $scope.forums = Forums.all();
-  $scope.remove = function(forum){
-    Forums.remove(forum);
-  };
+    $scope.forums = Forums.all();
+    $scope.remove = function (forum) {
+        Forums.remove(forum);
+    };
 
-  $ionicModal.fromTemplateUrl('templates/addPost.html', 
-    {
-      scope: $scope
-    }).then(function(modal){
-      $scope.modal = modal;
-    });
+    $ionicModal.fromTemplateUrl('templates/addPost.html',
+      {
+          scope: $scope
+      }).then(function (modal) {
+          $scope.modal = modal;
+      });
 
-    $scope.addPosts = function(classname, location, date){
-      var date = new Date();
-      var id = 5;
-      console.log(classname + location + date);
-      Forums.add(id++, classname, location, date);
-      $scope.modal.hide();
+    $scope.addPosts = function (classname, location, date) {
+        var date = new Date();
+        var id = 5;
+        console.log(classname + location + date);
+        Forums.add(id++, classname, location, date);
+        $scope.modal.hide();
     };
 
     $scope.logOut = function () {
@@ -111,14 +165,14 @@
         $state.go('login');
     };
 })
-
+/*
 .controller('ChatDetailCtrl'['$scope', '$stateParams', 'Forums', function($scope, $stateParams, Chats){
   console.log("ChatDetailCtrl arrived")
   var chatId = $stateParams.id;
   $scope.chat = Chats.get(chatId);
 }])
 
-
+*/
 // .controller('AddPostCtrl',['$scope', '$state','SessionData', '$firebase', function($scope, $state, SessionData, $firebase){
 //   $scope.showUserHome = function(){
 //     $state.go('main.forum');
@@ -187,16 +241,16 @@
 //     };
 
 // })
- 
 
-.controller('MapController', function($scope,$ionicLoading, $compile){
-     function initialize() {
+
+.controller('MapController', function ($scope, $ionicLoading, $compile) {
+    function initialize() {
         var myLatlng = new google.maps.LatLng(41.999005, -87.657135);
-        
+
         var mapOptions = {
-          center: myLatlng,
-          zoom: 16,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
+            center: myLatlng,
+            zoom: 16,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var map = new google.maps.Map(document.getElementById("map"),
             mapOptions);
@@ -206,50 +260,52 @@
         var compiled = $compile(contentString)($scope);
 
         var infowindow = new google.maps.InfoWindow({
-          content: compiled[0]
+            content: compiled[0]
         });
 
         var marker = new google.maps.Marker({
-          position: myLatlng,
-          map: map,
-          title: 'Current Location'
+            position: myLatlng,
+            map: map,
+            title: 'Current Location'
         });
 
-        google.maps.event.addListener(marker, 'click', function() {
-          infowindow.open(map,marker);
+        google.maps.event.addListener(marker, 'click', function () {
+            infowindow.open(map, marker);
         });
 
         $scope.map = map;
-      }
-      google.maps.event.addDomListener(window, 'load', initialize);
-      
-      $scope.centerOnMe = function() {
-        if(!$scope.map) {
-          return;
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    $scope.centerOnMe = function () {
+        if (!$scope.map) {
+            return;
         }
 
         $scope.loading = $ionicLoading.show({
-          content: 'Getting current location...',
-          showBackdrop: false
+            content: 'Getting current location...',
+            showBackdrop: false
         });
 
-        navigator.geolocation.getCurrentPosition(function(pos) {
-          $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-          $scope.loading.hide();
-        }, function(error) {
-          alert('Unable to get location: ' + error.message);
+        navigator.geolocation.getCurrentPosition(function (pos) {
+            $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+            $scope.loading.hide();
+        }, function (error) {
+            alert('Unable to get location: ' + error.message);
         });
-      };
-      //TODO
-      $scope.clickTest = function() {
+    };
+    //TODO
+    $scope.clickTest = function () {
         alert('Example of infowindow with ng-click')
-      };
+    };
 
-      $scope.logOut = function () {
+    $scope.logOut = function () {
         Auth.logout();
         $state.go('login');
     };
 });
+
+
 
 //OLD CODE FOR MAP - REMOVE WHEN TURNING IN
   // google.maps.event.addDomListener(window, "load", function(){

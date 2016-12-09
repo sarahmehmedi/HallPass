@@ -20,4 +20,26 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
+/*
+.item-profile {
+  height: 150px;
+  .item-avatar > img:first-child {
+    max-width: 100px;
+    max-height: 100px:
+  }
+}
 
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}*/
+
+.center-image{
+      margin:0 auto;
+      max-width: 200px !important;
+      max-height: 200px !important;
+    }
+.images-parent{
+      text-align: center;
+    }

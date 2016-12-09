@@ -9,3 +9,12 @@
 	width: 100%;
 }
 
+ .images-parent{
+      text-align: center;
+    }
+
+ .center-image{
+      margin:0 auto;
+      max-width: 200px !important;
+      max-height: 200px !important;
+    }
